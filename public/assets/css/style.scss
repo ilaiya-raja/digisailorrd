@@ -10,35 +10,8 @@ This files table contents are outlined below>>>>>
 *******************************************
 *******************************************
 
-** - Default Area CSS
-** - Preloader Area CSS
-** - Navbar Area CSS
-** - Main Banner Area CSS
-** - Featured Services Area CSS
-** - About Area CSS
-** - Services Area CSS
-** - Services Details Area CSS
-** - Webinar Area CSS
-** - Team Area CSS
-** - Partner Area CSS
-** - Feedback Area CSS
-** - Pricing Area CSS
-** - Blog Area CSS
-** - Blog Details Area CSS
-** - Free Trial Area CSS
-** - Page Title Area CSS
-** - Pagination Area CSS
-** - Sidebar Area CSS
-** - 404 Error Area CSS
-** - FAQ Area CSS
-** - Coming Soon Area CSS
-** - Shop Area CSS
-** - Product Details Area CSS
-** - Cart Area CSS
-** - Checkout Area CSS
-** - Contact Area CSS
-** - Footer Area CSS
-** - Go Top Area CSS
+** - Default CSS
+
 */
 
 /*================================================
@@ -49,8 +22,10 @@ Default CSS
 
 $main-font-family: 'Open Sans', sans-serif;
 $optional-font-family: 'Dosis', sans-serif;
-$main-color: #ff4800;
-$optional-color: #4ac728;
+$main-color: #0ca59d;
+$gradient-color: linear-gradient(to right top, #0ca59d, #28aca4, #39b2ab, #47b9b3, #54c0ba);
+$optional-color: #ffac00;
+$optional-gradient-color: linear-gradient(to right, #ffac00, #ffac00, #ffac00, #faa01f, #f7b733);
 $white-color: #ffffff;
 $black-color: #333333;
 $paragraph-color: #57647c;
@@ -109,14 +84,17 @@ p {
         bottom: 110px;
     }
 }
-img {
-    max-width: 100%;
+.bg-f7f9fc {
+    background-color: #f7f9fc;
 }
-.bg-f2f6f9 {
-    background-color: #f2f6f9;
+.bg-f9f9f9 {
+    background-color: #f9f9f9;
 }
 .bg-fafafa {
     background-color: #fafafa;
+}
+img {
+    max-width: 100%;
 }
 /*section-title*/
 .section-title {
@@ -174,58 +152,60 @@ img {
 }
 .btn-primary {
     color: $white-color;
-    background-color: $main-color;
+    background-color: transparent;
 
-    &.disabled, &:disabled {
-        color: $white-color;
-        background-color: $main-color;
-    }
-    &:hover, &:focus {
-        background-color: $optional-color !important;
-        color: $white-color !important;
-        box-shadow:  unset !important;
-    }
-}
-/*learn-more-btn*/
-.learn-more-btn {
-    display: inline-block;
-    position: relative;
-    color: $main-color;
-    letter-spacing: .5px;
-    font: {
-        size: 15px;
-        weight: 600;
-        family: $optional-font-family;
-    }
-    i {
-        margin-left: 2px;
-        position: relative;
-        top: -0.6px;
-
-        &::before {
-            font-size: 11px;
-        }
-    }
     &::before {
         content: '';
         position: absolute;
         left: 0;
-        bottom: 0;
-        width: 0;
-        background: $main-color;
-        height: 1px;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 30px;
+        background: $gradient-color;
+        transition: $transition;
+        z-index: -1;
+    }
+    &::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 30px;
+        background: $optional-gradient-color;
+        transition: $transition;
+        z-index: -1;
         opacity: 0;
         visibility: hidden;
-        transition: $transition;
     }
-    &:hover {
-        color: $main-color;
+    &:hover, &:focus {
+        background: transparent !important;
+        box-shadow: unset !important;
+        color: $white-color !important;
 
         &::before {
-            width: 100%;
+            opacity: 0;
+            visibility: hidden;
+        }
+        &::after {
             opacity: 1;
             visibility: visible;
         }
+    }
+}
+.btn-light {
+    background-color: transparent;
+    color: $black-color;
+    border: 1px solid #d7d7d7;
+    padding: 9px 32px 11px;
+
+    &:hover, &:focus {
+        box-shadow: unset !important;
+        background-color: $main-color !important;
+        color: $white-color !important;
+        border-color: $main-color !important;
     }
 }
 /*form-control*/
@@ -252,6 +232,35 @@ img {
         border-color: $main-color;
     }
 }
+/*read-more-btn*/
+.read-more-btn {
+    display: inline-block;
+    color: $optional-color;
+    font: {
+        size: 15px;
+        weight: 700;
+        family: $optional-font-family;
+    }
+    i {
+        color: $main-color;
+        margin-left: 2px;
+        position: relative;
+        transition: $transition;
+        top: -0.6px;
+
+        &::before {
+            font-size: 11px;
+        }
+    }
+    &:hover {
+        letter-spacing: .5px;
+        color: $main-color;
+
+        i {
+            color: $optional-color;
+        }
+    }
+}
 
 /*================================================
 Preloader Area CSS
@@ -259,90 +268,60 @@ Preloader Area CSS
 .preloader {
     position: fixed;
     left: 0;
-    width: 0;
-    height: 100%;
+    top: 0;
     width: 100%;
+    height: 100%;
+    z-index: 999999;
     text-align: center;
-    z-index: 9999999;
     transition: .9s;
 
-    .loader {
+    .spinner {
+        width: 50px;
+        height: 50px;
+        background-color: $white-color;
+        margin: 0 auto;
+        animation: sk-rotateplane 1.2s infinite ease-in-out;
         position: absolute;
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        display: inline-block;
         left: 0;
         right: 0;
-        margin: 0 auto;
-        top: 45%;
-        transform: translateY(-45%);
+        top: 42%;
+        transform: translateY(-42%);
         transition: $transition;
-
-        .loader-outter {
-            position: absolute;
-            border: 4px solid $white-color;
-            border-left-color: transparent;
-            border-bottom: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            animation: loader-outter 1s cubic-bezier(.42, .61, .58, .41) infinite;
-        }
-        .loader-inner {
-            position: absolute;
-            border: 4px solid $white-color;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            left: calc(50% - 20px);
-            top: calc(50% - 20px);
-            border-right: 0;
-            border-top-color: transparent;
-            animation: loader-inner 1s cubic-bezier(.42, .61, .58, .41) infinite;
-        }
     }
     &::before, &::after {
         content: '';
         position: absolute;
         left: 0;
         top: 0;
-        width: 100%;
-        height: 60%;
+        width: 60%;
+        height: 100%;
         z-index: -1;
         background: $main-color;
         transition: .9s;
     }
     &::after {
-        top: auto;
-        bottom: 0;
+        left: auto;
+        right: 0;
     }
     &.preloader-deactivate {
         visibility: hidden;
 
         &::after, &::before {
-            height: 0;
+            width: 0;
         }
-        .loader {
+        .spinner {
             opacity: 0;
             visibility: hidden;
         }
     }
 }
-@keyframes loader-outter {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-@keyframes loader-inner {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(-360deg);
+@keyframes sk-rotateplane {
+    0% { 
+        transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+    } 50% { 
+        transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+    } 100% { 
+        transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
     }
 }
 
@@ -357,19 +336,14 @@ Navbar Area CSS
         top: 0;
         bottom: 0;
     }
-    img {
-        &.optional-logo {
-            display: none;
-        }
-    }
 }
 .evolta-nav {
     background-color: transparent;
     padding: {
         top: 15px;
         bottom: 15px;
-        right: 20px;
-        left: 20px;
+        right: 15px;
+        left: 15px;
     }
     .navbar {
         padding: {
@@ -398,7 +372,7 @@ Navbar Area CSS
                 a {
                     font: {
                         size: 17px;
-                        weight: 600;
+                        weight: 700;
                     }
                     color: $white-color;
                     text-transform: capitalize;
@@ -413,7 +387,7 @@ Navbar Area CSS
                         right: 13px;
                     }
                     &:hover, &:focus, &.active {
-                        color: $main-color;
+                        color: $optional-color;
                     }
                     i {
                         font-size: 10px;
@@ -431,7 +405,7 @@ Navbar Area CSS
                 }
                 &:hover, &:focus, &.active {
                     a {
-                        color: $main-color;
+                        color: $optional-color;
                     }
                 }
                 .dropdown-menu {
@@ -466,7 +440,7 @@ Navbar Area CSS
                                 size: 16px;
                             }
                             &:hover, &:focus, &.active {
-                                color: $main-color;
+                                color: $optional-color;
                             }
                         }
                         .dropdown-menu {
@@ -480,7 +454,7 @@ Navbar Area CSS
                                     color: $black-color;
                                     
                                     &:hover, &:focus, &.active {
-                                        color: $main-color;
+                                        color: $optional-color;
                                     }
                                 }
                                 .dropdown-menu {
@@ -495,7 +469,7 @@ Navbar Area CSS
                                             text-transform: capitalize;
         
                                             &:hover, &:focus, &.active {
-                                                color: $main-color;
+                                                color: $optional-color;
                                             }
                                         }
                                         .dropdown-menu {
@@ -510,7 +484,7 @@ Navbar Area CSS
                                                     text-transform: capitalize;
                 
                                                     &:hover, &:focus, &.active {
-                                                        color: $main-color;
+                                                        color: $optional-color;
                                                     }
                                                 }
                                                 .dropdown-menu {
@@ -525,7 +499,7 @@ Navbar Area CSS
                                                             text-transform: capitalize;
                         
                                                             &:hover, &:focus, &.active {
-                                                                color: $main-color;
+                                                                color: $optional-color;
                                                             }
                                                         }
                                                         .dropdown-menu {
@@ -540,7 +514,7 @@ Navbar Area CSS
                                                                     text-transform: capitalize;
                                 
                                                                     &:hover, &:focus, &.active {
-                                                                        color: $main-color;
+                                                                        color: $optional-color;
                                                                     }
                                                                 }
                                                                 .dropdown-menu {
@@ -555,14 +529,14 @@ Navbar Area CSS
                                                                             text-transform: capitalize;
                                         
                                                                             &:hover, &:focus, &.active {
-                                                                                color: $main-color;
+                                                                                color: $optional-color;
                                                                             }
                                                                         }
                                                                     }
                                                                 }
                                                                 &.active {
                                                                     a {
-                                                                        color: $main-color;
+                                                                        color: $optional-color;
                                                                     }
                                                                 }
                                                                 &:hover {
@@ -576,7 +550,7 @@ Navbar Area CSS
                                                         }
                                                         &.active {
                                                             a {
-                                                                color: $main-color;
+                                                                color: $optional-color;
                                                             }
                                                         }
                                                         &:hover {
@@ -590,7 +564,7 @@ Navbar Area CSS
                                                 }
                                                 &.active {
                                                     a {
-                                                        color: $main-color;
+                                                        color: $optional-color;
                                                     }
                                                 }
                                                 &:hover {
@@ -604,7 +578,7 @@ Navbar Area CSS
                                         }
                                         &.active {
                                             a {
-                                                color: $main-color;
+                                                color: $optional-color;
                                             }
                                         }
                                         &:hover {
@@ -618,7 +592,7 @@ Navbar Area CSS
                                 }
                                 &.active {
                                     a {
-                                        color: $main-color;
+                                        color: $optional-color;
                                     }
                                 }
                                 &:hover {
@@ -632,7 +606,7 @@ Navbar Area CSS
                         }
                         &.active {
                             a {
-                                color: $main-color;
+                                color: $optional-color;
                             }
                         }
                         &:hover {
@@ -663,19 +637,23 @@ Navbar Area CSS
                 color: $white-color;
 
                 &:hover {
-                    color: $main-color;
+                    color: $optional-color;
                 }
             }
             .btn {
                 margin-left: 15px;
             }
             .btn-primary {
-                background-color: $white-color;
-                color: $main-color;
+                color: $optional-color;
 
+                &::before {
+                    background: $white-color;
+                }
+                &::after {
+                    background: $optional-color;
+                }
                 &:hover {
                     color: $white-color !important;
-                    background-color: $main-color !important;
                 }
             }
             .option-item {
@@ -695,7 +673,7 @@ Navbar Area CSS
                         font-size: 17px;
                     }
                     &:hover {
-                        color: $main-color;
+                        color: $optional-color;
                     }
                 }
                 .close-btn {
@@ -710,7 +688,33 @@ Navbar Area CSS
                         display: block;
                     }
                     &:hover {
-                        color: $main-color;
+                        color: $optional-color;
+                    }
+                }
+                a {
+                    color: $white-color;
+    
+                    i {
+                        &::before {
+                            font-size: 17px;
+                        }
+                    }
+                    span {
+                        display: inline-block;
+                        width: 15px;
+                        height: 15px;
+                        background: $optional-gradient-color;
+                        border-radius: 50%;
+                        text-align: center;
+                        color: $white-color;
+                        line-height: 15px;
+                        position: relative;
+                        top: -12px;
+                        left: -12px;
+                        font: {
+                            weight: 600;
+                            size: 10px;
+                        }
                     }
                 }
             }
@@ -718,14 +722,14 @@ Navbar Area CSS
     }
 }
 .navbar-area {
+    background-color: transparent;
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
     height: auto;
-    z-index: 999;
-    background-color: transparent;
     transition: $transition;
+    z-index: 999;
 
     &.is-sticky {
         position: fixed;
@@ -734,198 +738,14 @@ Navbar Area CSS
         width: 100%;
         z-index: 999;
         box-shadow: 0 2px 28px 0 rgba(0, 0, 0, 0.06);
-        background: $white-color !important;
+        background: $gradient-color !important;
         animation: 500ms ease-in-out 0s normal none 1 running fadeInDown;
         transition: $transition;
 
         .evolta-nav {
-            background-color: $white-color;
             padding: {
                 top: 10px;
                 bottom: 10px;
-            }
-            .navbar {
-                .navbar-nav {
-                    .nav-item {
-                        a {
-                            color: $black-color;
-                            
-                            &:hover, &:focus, &.active {
-                                color: $main-color;
-                            }
-                        }
-                        &:hover, &:focus, &.active {
-                            a {
-                                color: $main-color;
-                            }
-                        }
-                        .dropdown-menu {
-                            li {
-                                a {
-                                    color: $black-color;
-                                    
-                                    &:hover, &:focus, &.active {
-                                        color: $main-color;
-                                    }
-                                }
-                                .dropdown-menu {
-                                    li {
-                                        a {
-                                            color: $black-color;
-                                            
-                                            &:hover, &:focus, &.active {
-                                                color: $main-color;
-                                            }
-                                        }
-                                        .dropdown-menu {
-                                            li {
-                                                a {
-                                                    color: $black-color;
-                
-                                                    &:hover, &:focus, &.active {
-                                                        color: $main-color;
-                                                    }
-                                                }
-                                                .dropdown-menu {
-                                                    li {
-                                                        a {
-                                                            color: $black-color;
-                        
-                                                            &:hover, &:focus, &.active {
-                                                                color: $main-color;
-                                                            }
-                                                        }
-                                                        .dropdown-menu {
-                                                            li {
-                                                                a {
-                                                                    color: $black-color;
-                                
-                                                                    &:hover, &:focus, &.active {
-                                                                        color: $main-color;
-                                                                    }
-                                                                }
-                                                                .dropdown-menu {
-                                                                    li {
-                                                                        a {
-                                                                            color: $black-color;
-                                        
-                                                                            &:hover, &:focus, &.active {
-                                                                                color: $main-color;
-                                                                            }
-                                                                        }
-                                                                        .dropdown-menu {
-                                                                            li {
-                                                                                a {
-                                                                                    color: $black-color;
-                                                
-                                                                                    &:hover, &:focus, &.active {
-                                                                                        color: $main-color;
-                                                                                    }
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                        &.active {
-                                                                            a {
-                                                                                color: $main-color;
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                }
-                                                                &.active {
-                                                                    a {
-                                                                        color: $main-color;
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                        &.active {
-                                                            a {
-                                                                color: $main-color;
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                                &.active {
-                                                    a {
-                                                        color: $main-color;
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        &.active {
-                                            a {
-                                                color: $main-color;
-                                            }
-                                        }
-                                    }
-                                }
-                                &.active {
-                                    a {
-                                        color: $main-color;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                .others-options {        
-                    .cart-btn {
-                        color: $black-color;
-        
-                        &:hover {
-                            color: $main-color;
-                        }
-                    }
-                    .btn-primary {
-                        background-color: $main-color;
-                        color: $white-color;
-        
-                        &:hover {
-                            color: $white-color !important;
-                            background-color: $optional-color !important;
-                        }
-                    }
-                    .option-item {
-                        color: $black-color;
-        
-                        .search-btn {
-                            color: $black-color;
-                            
-                            &:hover {
-                                color: $main-color;
-                            }
-                        }
-                        .close-btn {
-                            color: $black-color;
-                            
-                            &:hover {
-                                color: $main-color;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        .navbar-brand {
-            padding: {
-                top: 0;
-                bottom: 0;
-            }
-            img {
-                &.main-logo {
-                    display: none;
-                }
-                &.optional-logo {
-                    display: block;
-                }
-            }
-        }
-    }
-    &.navbar-style-two {
-        .evolta-nav {
-            padding: {
-                left: 0;
-                right: 0;
             }
         }
     }
@@ -959,7 +779,7 @@ Navbar Area CSS
                 transition: $transition;
 
                 &:focus {
-                    border-color: $main-color;
+                    border-color: $optional-color;
                 }
             }
             .search-button {
@@ -975,7 +795,7 @@ Navbar Area CSS
                 transition: $transition;
 
                 &:hover, &:focus {
-                    color: $main-color;
+                    color: $optional-color;
                 }
             }
         }
@@ -992,39 +812,6 @@ Navbar Area CSS
         &.is-sticky {
             border-bottom: none;
             box-shadow: 0 7px 13px 0 rgba(0, 0, 0, .1);
-
-            .evolta-responsive-nav {
-                .logo {
-                    img {
-                        &.main-logo {
-                            display: none;
-                        }
-                        &.optional-logo {
-                            display: block;
-                        }
-                    }
-                }
-                .mean-container {
-                    a {
-                        &.meanmenu-reveal {
-                            color: $black-color;
-        
-                            span {
-                                background: $black-color;
-                            }
-                        }
-                    }
-                }
-            }
-            .others-options {
-                .cart-btn {
-                    color: $black-color;
-        
-                    &:hover {
-                        color: $main-color;
-                    }
-                }
-            }
         }
     }
     .evolta-responsive-nav {
@@ -1041,7 +828,7 @@ Navbar Area CSS
                         li {
                             a {
                                 &.active {
-                                    color: $main-color;
+                                    color: $optional-color;
                                 }
                             }
                             li {
@@ -1074,12 +861,6 @@ Navbar Area CSS
             position: relative;
             width: 50%;
             z-index: 999;
-
-            img {
-                &.optional-logo {
-                    display: none;
-                }
-            }
         }
     }
     .others-options {
@@ -1094,7 +875,7 @@ Navbar Area CSS
             color: $white-color;
 
             &:hover {
-                color: $main-color;
+                color: $optional-color;
             }
         }
     }
@@ -1107,164 +888,131 @@ Navbar Area CSS
 Main Banner Area CSS
 =================================================*/
 .main-banner {
-    height: 770px;
     position: relative;
-    background: {
-        image: url(../../assets/img/main-banner.jpg);
-        position: center center;
-        size: cover;
-        repeat: no-repeat;
-    }
-    .container-fluid {
-        padding: {
-            left: 100px;
-            right: 100px;
-        }
+    z-index: 1;
+    background-color: $main-color;
+    height: 700px;
+    padding: {
+        left: 50px;
+        right: 50px;
     }
 }
 .main-banner-content {
-    margin-top: -80px;
-    max-width: 720px;
-
+    span {
+        display: block;
+        color: $white-color;
+        margin-bottom: -5px;
+        font: {
+            family: $optional-font-family;
+            size: 18px;
+        }
+    }
     h1 {
         color: $white-color;
-        margin-bottom: 0;
-        line-height: 1.1;
+        margin: {
+            bottom: 0;
+        }
         font: {
-            size: 70px;
+            size: 65px;
             weight: 700;
         }
     }
     p {
-        font-size: 15px;
         color: $white-color;
-        max-width: 600px;
+        font-size: 14.5px;
+        max-width: 620px;
         margin: {
-            top: 25px;
+            top: 10px;
             bottom: 0;
         }
     }
-    .btn-box {
-        margin-top: 30px;
+    .btn-primary {
+        margin-top: 20px;
 
-        .optional-btn {
-            display: inline-block;
-            color: $white-color;
-            position: relative;
-            margin-left: 20px;
-            font: {
-                family: $optional-font-family;
-                size: 16px;
-                weight: 700;
-            }
-            &::before {
-                content: '';
-                position: absolute;
-                left: 0;
-                bottom: 0;
-                width: 100%;
-                height: 2px;
-                background-color: $white-color;
-                transition: $transition;
-            }
-            &::after {
-                content: '';
-                position: absolute;
-                right: 0;
-                bottom: 0;
-                width: 0;
-                height: 2px;
-                background-color: $main-color;
-                transition: $transition;
-            }
-            &:hover {
-                color: $white-color;
-
-                &::before {
-                    width: 0;
-                }
-                &::after {
-                    width: 100%;
-                    right: auto;
-                    left: 0;
-                }
-            }
+        &::before {
+            background: $optional-color;
+        }
+        &::after {
+            background: $white-color;
+        }
+        &:hover {
+            color: $main-color !important;
         }
     }
+}
+.main-banner-image {
+    text-align: right;
+    position: relative;
+    top: 35px;
+
+    img {
+        max-width: 90%;
+    }
+}
+.banner-shape {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+}
+.shape1 {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: -2;
+}
+.shape2 {
+    position: absolute;
+    left: 23%;
+    top: 0;
+    z-index: -1;
+    animation: moveleftbounce 15s linear infinite;
+}
+@keyframes moveleftbounce {
+    0% {
+        transform: translateX(0px); 
+    }
+    50% {
+        transform: translateX(20px); 
+    }
+    100% {
+        transform: translateX(0px); 
+    } 
+}
+@keyframes movebounce {
+    0% {
+        transform: translateY(0px); 
+    }
+    50% {
+        transform: translateY(20px); 
+    }
+    100% {
+        transform: translateY(0px); 
+    } 
 }
 
 /*================================================
-Featured Services Area CSS
+Partner Area CSS
 =================================================*/
-.featured-services-area {
-    position: relative;
-    margin-top: -113px;
+.partner-area {
+    padding-top: 30px;
 }
-.featured-services-inner {
-    background-color: $white-color;
-    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.1);
-}
-.single-featured-services-box {
-    position: relative;
-    z-index: 1;
-    transition: $transition;
-    padding: 20px 25px;
+.single-partner-item {
+    text-align: center;
 
-    .icon {
-        margin-bottom: 5px;
-        color: $main-color;
-        transition: $transition;
-
-        i {
-            font-size: 45px;
-
-            &::before {
-                font-size: 45px;
+    a {
+        img {
+            width: auto !important;
+            display: inline-block !important;
+            transition: $transition;
+            opacity: .80;
+        }
+    }
+    &:hover {
+        a {
+            img {
+                opacity: 1;
             }
-        }
-    }
-    h3 {
-        margin-bottom: 0;
-        transition: $transition;
-        font: {
-            size: 23px;
-            weight: 700;
-        }
-    }
-    p {
-        transition: $transition;
-        margin: {
-            top: 12px;
-            bottom: 0;
-        }
-    }
-    &::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0;
-        background-color: $main-color;
-        width: 2px;
-        height: 100%;
-        transition: $transition;
-        z-index: -1;
-    }
-    &:hover, &.active {
-        .icon {
-            color: $white-color;
-        }
-        h3 {
-            color: $white-color;
-
-            a {
-                color: $white-color;
-            }
-        }
-        p {
-            color: #f0f0f0;
-        }
-        &::before {
-            width: 100%;
         }
     }
 }
@@ -1273,45 +1021,48 @@ Featured Services Area CSS
 About Area CSS
 =================================================*/
 .about-area {
+    overflow: hidden;
     position: relative;
     z-index: 1;
 }
-.about-image {
-    position: relative;
-    padding-bottom: 100px;
-    text-align: right;
-
-    img {
-        &:nth-child(2) {
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            border-radius: 0 10px 0 0;
+.about-content {
+    span {
+        display: block;
+        color: $main-color;
+        text-transform: uppercase;
+        margin-bottom: 1px;
+        font: {
+            weight: 600;
+            size: 15px;
+            family: $optional-font-family;
         }
     }
-}
-.about-content {
-    padding-left: 25px;
-
     h2 {
-        margin-bottom: 18px;
-        line-height: 1.3;
+        margin-bottom: 2px;
         font: {
             size: 40px;
             weight: 700;
         }
     }
     p {
-        margin-bottom: 13px;
-    }
-    .btn {
-        margin-top: 7px;
+        margin: {
+            bottom: 0;
+            top: 10px;
+        }
     }
 }
 .about-inner-area {
     margin-top: 60px;
 }
 .about-text {
+    transition: $transition;
+    background-color: #fafafa;
+    padding: 25px;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    border-radius: 5px;
+
     h3 {
         margin-bottom: 0;
         font: {
@@ -1325,181 +1076,388 @@ About Area CSS
             bottom: 0;
         }
     }
+    i {
+        position: absolute;
+        left: -10px;
+        top: -50px;
+        z-index: -1;
+        opacity: .03;
+        transition: $transition;
+
+        &::before {
+            font-size: 100px;
+        }
+    }
+    &:hover {
+        box-shadow: 2px 1px 25px 5px rgba(166, 166, 166, .2);
+        background-color: $white-color;
+        transform: translateY(-10px);
+
+        i {
+            left: 0;
+            top: -25px;
+        }
+    }
 }
-.shape-img1 {
+
+/*================================================
+Featured Solutions Area CSS
+=================================================*/
+.featured-solutions-area {
+    padding-bottom: 80px;
+    position: relative;
+    z-index: 1;
+}
+.single-featured-solutions {
+    margin-bottom: 30px;
+    text-align: center;
+
+    img {
+        margin-bottom: 20px;
+        display: inline-block;
+    }
+    h3 {
+        margin-bottom: 0;
+        font: {
+            size: 23px;
+            weight: 700;
+        }
+    }
+    p {
+        margin: {
+            top: 13px;
+            bottom: 0;
+        }
+    }
+    .read-more-btn {
+        margin-top: 15px;
+    }
+}
+
+/*================================================
+Features Area CSS
+=================================================*/
+.features-area {
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+}
+.overview-box {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-align: center!important;
+    align-items: center!important;
+    margin: {
+        left: -15px;
+        right: -15px;
+        bottom: 70px;
+    }
+    &:last-child {
+        margin-bottom: 0;
+    }
+    .image {
+        -ms-flex: 0 0 50%;
+        flex: 0 0 50%;
+        max-width: 50%;
+        text-align: center;
+        padding: {
+            left: 15px;
+            right: 15px;
+        }
+    }
+    .content {
+        -ms-flex: 0 0 50%;
+        flex: 0 0 50%;
+        max-width: 50%;
+        padding: {
+            left: 15px;
+            right: 15px;
+        }
+        h3 {
+            margin-bottom: 8px;
+            font: {
+                size: 32px;
+                weight: 700;
+            }
+        }
+        .features-list {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            padding-left: 0;
+            list-style-type: none;
+            font-family: $optional-font-family;
+            margin: {
+                bottom: 0;
+                top: -10px;
+                left: -10px;
+                right: -10px;
+            }
+            li {
+                -ms-flex: 0 0 50%;
+                flex: 0 0 50%;
+                max-width: 50%;
+                margin-top: 15px;
+                padding: {
+                    left: 10px;
+                    right: 10px;
+                }
+                span {
+                    display: block;
+                    position: relative;
+                    padding-left: 34px;
+                    font: {
+                        size: 16px;
+                        weight: 600;
+                    }
+                    i {
+                        font-size: 16px;
+                        color: $white-color;
+                        background-color: $main-color;
+                        width: 25px;
+                        height: 23px;
+                        line-height: 23px;
+                        text-align: center;
+                        border-radius: 3px;
+                        position: absolute;
+                        left: 0;
+                        top: 50%;
+                        transform: translateY(-50%);
+                    }
+                }
+            }
+        }
+    }
+}
+.rectangle-shape1 {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
     left: 0;
-    z-index: -1;
-    opacity: .40;
-}
-.shape-img2 {
-    position: absolute;
-    left: 5%;
-    top: 5%;
-    z-index: -1;
-    animation-name: rotateMe;
-    animation-duration: 20s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-}
-.shape-img7 {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    z-index: -1;
-    opacity: .20;
-    animation: rotate3d 4s linear infinite;
-}
-.shape-img3 {
-    position: absolute;
-    right: 0;
     top: 0;
     z-index: -1;
-    opacity: .10;
-    animation: rotate3d 4s linear infinite;
 }
-.shape-img4 {
+.rectangle-shape2 {
     position: absolute;
-    right: 40%;
-    bottom: 8%;
-    z-index: -1;
-    animation: animationFramesOne 20s infinite linear;
-}
-.shape-img5 {
-    position: absolute;
-    right: 5%;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: -1;
-    opacity: 0.7;
-    animation-name: rotateMe;
-    animation-duration: 20s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-}
-.shape-img6 {
-    position: absolute;
-    left: 2%;
+    right: 0;
     bottom: 0;
     z-index: -1;
-    opacity: .40;
-    animation: moveLeftBounce 5s linear infinite;
 }
-.dot-shape1 {
-    position: absolute;
-    top: 5%;
-    left: 50%;
-    z-index: -1;
-    animation: animationFramesTwo 40s infinite linear;
-    opacity: 0.5;
+
+/*================================================
+Funfacts Area CSS
+=================================================*/
+.funfacts-area {
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    background: $main-color;
 }
-.dot-shape2 {
-    position: absolute;
-    left: 5%;
-    top: 45%;
-    z-index: -1;
-    animation: animationFramesTwo 30s infinite linear;
-    opacity: 0.5;
-}
-.dot-shape4 {
-    position: absolute;
-    right: 15%;
-    top: 50%;
-    z-index: -1;
-    animation: rotate3d 4s linear infinite;
-}
-.dot-shape5 {
-    position: absolute;
-    left: 30%;
-    top: 50%;
-    z-index: -1;
-    animation: animationFramesOne 20s infinite linear;
-}
-.dot-shape6 {
-    position: absolute;
-    right: 45%;
-    bottom: 5%;
-    z-index: -1;
-    animation: rotate3d 4s linear infinite;
-}
-@keyframes moveBounce {
-    0% {
-        transform: translateY(0px); 
+.single-funfacts {
+    position: relative;
+    padding-left: 150px;
+    
+    .circlechart {
+        width: 130px;
+        height: 130px;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+
+        .circle-chart {
+            width: 130px;
+            height: 130px;
+            fill: $white-color;
+
+            .circle-chart__background {
+                stroke: #9bb0c1;
+                stroke-width: .5;
+            }
+            .circle-chart__circle {
+                stroke: $optional-color !important;
+                stroke-width: 1.5;
+            }
+            .circle-chart__info {
+                font: {
+                    family: $optional-font-family;
+                    weight: 600;
+                }
+                .circle-chart__percent {
+                    position: relative;
+                }
+            }
+        }
     }
-    50% {
-        transform: translateY(20px); 
+    span {
+        display: block;
+        color: #f7f7f7;
+        text-transform: uppercase;
+        margin-bottom: 2px;
+        font: {
+            family: $optional-font-family;
+            weight: 600;
+        }
+    }
+    h3 {
+        margin-bottom: 0;
+        color: $white-color;
+        font: {
+            size: 34px;
+            weight: 700;
+        }
+    }
+}
+.lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    margin: auto;
+    width: 90vw;
+    z-index: -1;
+
+    .line {
+        position: absolute;
+        width: 1px;
+        height: 100%;
+        top: 0;
+        left: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        overflow: hidden;
+
+        &::after {
+            content: "";
+            display: block;
+            position: absolute;
+            height: 15vh;
+            width: 100%;
+            top: -50%;
+            left: 0;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, $white-color 75%, $white-color 100%);
+            animation: run 7s 0s infinite;
+            animation-fill-mode: forwards;
+            animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
+        }
+        &:nth-child(1) {
+            margin-left: -25%;
+
+            &::after {
+                animation-delay: 2s;
+            }
+        }
+        &:nth-child(3) {
+            margin-left: 25%;
+
+            &::after {
+                animation-delay: 2.5s;
+            }
+        }
+    }
+}
+@keyframes run {
+    0% {
+        top: -50%;
     }
     100% {
-        transform: translateY(0px); 
-    } 
-}
-@keyframes rotateMe {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
+        top: 110%;
     }
 }
-@keyframes rotate3d {
-    0% {
-        transform: rotateY(0deg);
-    }
-    100% {
-        transform: rotateY(360deg);
-    }
+
+/*================================================
+Team Area CSS
+=================================================*/
+.team-area {
+    padding-bottom: 80px;
 }
-@keyframes animationFramesOne {
-    0% {
-        transform: translate(0px,0px) rotate(0deg) ;
+.single-team-box {
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+    background-color: $white-color;
+    transition: $transition;
+    text-align: center;
+
+    .image {
+        position: relative;
+        overflow: hidden;
+
+        img {
+            transition: $transition;
+        }
+        .social {
+            position: absolute;
+            top: 20px;
+            right: -40px;
+            z-index: 2;
+            text-decoration: none;
+            opacity: 0;
+            padding: 8px 15px;
+            background: $white-color;
+            border-radius: 35px;
+            visibility: hidden;
+            transition: $transition;
+
+            a {
+                display: inline-block;
+                color: $main-color;
+                font-size: 17px;
+                margin: 0 7px;
+
+                &:hover {
+                    color: $optional-color;
+                }
+            }
+        }
     }
-    20% {
-        transform: translate(-73px,1px) rotate(-36deg) ;
+    .content {
+        transition: $transition;
+        padding: 25px;
+
+        h3 {
+            margin-bottom: 0;
+            transition: $transition;
+            font: {
+                size: 23px;
+                weight: 700;
+            }
+        }
+        span {
+            display: block;
+            margin-top: 8px;
+            color: $optional-color;
+            transition: $transition;
+            font: {
+                family: $optional-font-family;
+                size: 15px;
+                weight: 500;
+            }
+        }
     }
-    40% {
-        transform: translate(-141px,-72px) rotate(-72deg) ;
-    }
-    60% {
-        transform: translate(-83px,-122px) rotate(-108deg) ;
-    }
-    80% {
-        transform: translate(40px,-72px) rotate(-144deg) ;
-    }
-    100% {
-        transform:  translate(0px,0px) rotate(0deg) ;
-    }
-}
-@keyframes moveLeftBounce {
-    0% {
-        transform: translateX(0px); 
-    }
-    50% {
-        transform: translateX(20px); 
-    }
-    100% {
-        transform: translateX(0px); 
-    } 
-}
-@keyframes animationFramesTwo {
-    0% {
-        transform: translate(0px,0px) rotate(0deg) ;
-    }
-    20% {
-        transform: translate(73px,-1px) rotate(36deg) ;
-    }
-    40% {
-        transform: translate(141px,72px) rotate(72deg) ;
-    }
-    60% {
-        transform: translate(83px,122px) rotate(108deg) ;
-    }
-    80% {
-        transform: translate(-40px,72px) rotate(144deg) ;
-    }
-    100% {
-        transform:  translate(0px,0px) rotate(0deg) ;
+    &:hover {
+        transform: translateY(-5px);
+        
+        .content {
+            background-color: $main-color;
+
+            h3 {
+                color: $white-color;
+            }
+            span {
+                color: $white-color;
+            }
+        }
+        .image {
+            img {
+                transform: scale(1.2);
+            }
+            .social {
+                opacity: 1;
+                visibility: visible;
+                right: 20px;
+            }
+        }
     }
 }
 
@@ -1507,97 +1465,78 @@ About Area CSS
 Services Area CSS
 =================================================*/
 .services-area {
-    padding-bottom: 90px;
     position: relative;
     z-index: 1;
+    padding-bottom: 80px;
 
     .pagination-area {
-        margin-bottom: 30px;
+        margin: {
+            bottom: 30px;
+            top: 20px;
+        }
     }
 }
 .single-services-box {
-    background-color: #ffffff;
     margin-bottom: 30px;
     padding: 30px 25px;
+    background-color: $white-color;
+    text-align: center;
     transition: $transition;
-    position: relative;
-    z-index: 1;
-    border-radius: 5px;
 
-    .icon {
+    img {
+        display: inline-block;
         margin-bottom: 18px;
-        background-color: #ffe4d9;
-        width: 75px;
-        height: 75px;
-        line-height: 75px;
         transition: $transition;
-        text-align: center;
-        color: $main-color;
-        border-radius: 50%;
-
-        i {
-            &::before {
-                transition: $transition;
-                font-size: 35px;
-            }
-        }
     }
     h3 {
         margin-bottom: 0;
-        transition: $transition;
         font: {
             size: 23px;
             weight: 700;
         }
     }
     p {
-        transition: $transition;
         margin: {
             top: 12px;
             bottom: 0;
         }
     }
-    &::before {
-        border-radius: 5px;
-        content: '';
-        height: 100%;
-        width: 0;
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        background-color: $main-color;
-        transition: $transition;
-        z-index: -1;
-    }
     &:hover {
+        box-shadow: 2px 1px 25px 5px rgba(166, 166, 166, .2);
         transform: translateY(-10px);
-        box-shadow: 0 0 40px 3px rgba(0, 0, 0, 0.05);
 
-        .icon {
-            background-color: $white-color;
-            color: $main-color;
-            transform: rotate(360deg);
-            
-            i {
-                &::before {
-                    font-size: 30px;
-                }
-            }
-        }
-        &::before {
-            width: 100%;
-        }
-        p {
-            color: $white-color;
-        }
-        h3 {
-            color: $white-color;
-
-            a {
-                color: $white-color;
-            }
+        img {
+            animation: swing 1s ease;
+            animation-iteration-count: 1;
         }
     }
+}
+@keyframes swing {
+    15% {
+        transform: translateX(10px);
+    }
+    30% {
+        transform: translateX(-10px);
+    }
+    50% {
+        transform: translateX(6px);
+    }
+    65% {
+        transform: translateX(-6px);
+    }
+    80% {
+        transform: translateX(4px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+.services-shape {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: -1;
 }
 
 /*================================================
@@ -1613,7 +1552,7 @@ Services Details Area CSS
     margin: {
         right: -15px;
         left: -15px;
-        top: 50px;
+        top: 60px;
     }
     &:first-child {
         margin-top: 0;
@@ -1631,6 +1570,39 @@ Services Details Area CSS
             font: {
                 size: 23px;
                 weight: 700;
+            }
+        }
+        p {
+            margin-bottom: 10px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+        .features-list {
+            padding-left: 0;
+            font-family: $optional-font-family;
+            list-style-type: none;
+            margin: {
+                top: 15px;
+                bottom: 0;
+            }
+            li {
+                position: relative;
+                color: $paragraph-color;
+                margin-bottom: 8px;
+                padding-left: 22px;
+                font: {
+                    size: 15px;
+                    weight: 600;
+                }
+                i {
+                    position: absolute;
+                    left: 0;
+                    top: 2px;
+                    color: $optional-color;
+                    font-size: 17px;
+                }
             }
         }
         .services-details-accordion {
@@ -1715,452 +1687,237 @@ Services Details Area CSS
 }
 
 /*================================================
-Webinar Area CSS
+Feedback Area CSS
 =================================================*/
-.webinar-content {
-    max-width: 555px;
-    padding: {
-        top: 150px;
-        bottom: 150px;
-        left: 50px;
-    }
-    h2 {
-        margin-bottom: 15px;
-        font: {
-            size: 40px;
-            weight: 700;
-        }
-    }
-    p {
-        margin-bottom: 20px;
-    }
-}
-.webinar-video-image {
+.feedback-area {
+    background: $gradient-color;
     position: relative;
-    text-align: center;
-    width: 100%;
-    height: 100%;
-    background: {
-        position: center center;
-        size: cover;
-        repeat: no-repeat;
-        image: url(../../assets/img/woman.jpg);
+    overflow: hidden;
+    z-index: 1;
+    padding: {
+        bottom: 80px;
+        top: 220px;
     }
-    img {
-        display: none;
-    }
-    .video-btn {
-        position: absolute;
-        left: 50%;
-        display: inline-block;
-        top: 50%;
-        transform: translateY(-50%) translateX(-50%);
-        width: 90px;
-        height: 90px;
-        line-height: 90px;
-        background-color: $main-color;
-        border-radius: 50%;
-        color: $white-color;
-        z-index: 1;
-
-        i {
-            &::before {
-                font-size: 38px;
-            }
+    .section-title {
+        h2 {
+            color: $white-color;
         }
-        &::after, &::before {
-            content: '';
-            display: block;
-            position: absolute;
-            top: 0;
-            right: 0;
-            z-index: -1;
-            bottom: 0;
-            left: 0;
-            border-radius: 50%;
-            border: 1px solid $main-color;
-        }
-        &::before {
-            animation: ripple 2s linear infinite
-        }
-        &::after {
-            animation: ripple 2s linear 1s infinite
-        }
-        &:hover, &:focus {
-            background-color: $optional-color;
+        p {
             color: $white-color;
         }
     }
 }
-@keyframes ripple {
-    0% {
-        transform: scale(1)
-    }
-    75% {
-        transform: scale(1.75);
-        opacity: 1
-    }
-    100% {
-        transform: scale(2);
-        opacity: 0
-    }
-}
-
-/*================================================
-Team Area CSS
-=================================================*/
-.team-area {
-    padding-bottom: 80px;
-}
-.single-team-box {
-    margin-bottom: 30px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
-    background-color: $white-color;
-    transition: $transition;
-    text-align: center;
-
-    .image {
-        position: relative;
-        overflow: hidden;
-
-        img {
-            transition: $transition;
-        }
-        .social {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%,-50%);
-            z-index: 2;
-            text-decoration: none;
-            opacity: 0;
-            margin-top: -100px;
-            padding: 8px 15px;
-            background: $white-color;
-            border-radius: 35px;
-            visibility: hidden;
-            transition: $transition;
-
-            a {
-                display: inline-block;
-                color: $main-color;
-                font-size: 17px;
-                margin: 0 7px;
-
-                &:hover {
-                    color: $optional-color;
-                }
-            }
-        }
-    }
-    .content {
-        padding: 25px;
-        position: relative;
-        transition: $transition;
-
-        h3 {
-            margin-bottom: 0;
-            transition: $transition;
-            font: {
-                size: 23px;
-                weight: 700;
-            }
-        }
-        span {
-            display: block;
-            margin-top: 8px;
-            color: $main-color;
-            transition: $transition;
-            font: {
-                family: $optional-font-family;
-                size: 15px;
-                weight: 500;
-            }
-        }
-    }
-    &:hover {
-        transform: translateY(-5px);
-        
-        .image {
-            img {
-                transform: scale(1.2);
-            }
-            .social {
-                opacity: 1;
-                margin-top: 0;
-                visibility: visible;
-            }
-        }
-        .content {
-            background-color: $main-color;
-
-            h3 {
-                color: $white-color;
-            }
-            span {
-                color: $white-color;
-            }
-        }
-    }
-}
-
-/*================================================
-Partner Area CSS
-=================================================*/
-.partner-area {
-    padding-bottom: 100px;
-}
-.customers-partner-list {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
+.single-feedback-item {
+    position: relative;
     margin: {
-        right: -5px;
-        left: -5px;
+        left: 25px;
+        top: 25px;
+        bottom: 30px;
     }
-}
-.partner-item {
-    -ms-flex: 0 0 20%;
-    flex: 0 0 20%;
-    max-width: 20%;
-    padding: {
-        left: 5px;
-        right: 5px;
-    }
-    a {
-        display: block;
-        padding: 25px;
-        background: $white-color;
-        text-align: center;
+    .feedback-desc {
+        background-color: $white-color;
+        border-radius: 5px;
         position: relative;
-        margin-bottom: 10px;
-
-        &::before, &::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 0;
-            opacity: 0;
-            visibility: hidden;
-            transition: $transition;
+        z-index: 1;
+        padding: {
+            left: 30px;
+            bottom: 30px;
+            right: 30px;
+            top: 40px;
+        }
+        p {
+            margin-bottom: 0;
+            position: relative;
+            font: {
+                size: 15px;
+                style: italic;
+            }
+            &::before {
+                content: '"';
+                position: relative;
+                display: inline-block;
+                left: 0;
+                color: $paragraph-color;
+            }
+            &::after {
+                content: '"';
+                position: relative;
+                display: inline-block;
+                right: 0;
+                color: $paragraph-color;
+            }
         }
         &::before {
-            left: 0;
-            top: 0;
-            border: {
-                left: 3px solid $main-color;
-                top: 3px solid $main-color;
-            }
-        }
-        &::after {
-            right: 0;
-            bottom: 0;
-            border: {
-                right: 3px solid $main-color;
-                bottom: 3px solid $main-color;
-            }
-        }
-        img {
-            transition: $transition;
-        }
-        &:hover {
-            &::after, &::before {
-                width: 40px;
-                height: 40px;
-                opacity: 1;
-                visibility: visible;
-            }
-            img {
-                transform: scale(.8);
-            }
-        }
-    }
-    &:nth-child(6) {
-        margin-left: 10%;
-    }
-}
-
-/*================================================
-Feedback Area CSS
-=================================================*/
-.feedback-area {
-    position: relative;
-    z-index: 1;
-}
-.feedback-item {
-    position: relative;
-    z-index: 3;
-    margin-left: auto;
-    max-width: 555px;
-    padding: {
-        top: 100px;
-        bottom: 100px;
-    }
-    p {
-        margin-bottom: 0;
-        color: $white-color;
-        font: {
-            size: 19px;
-            style: italic;
+            content: '';
+            position: absolute;
+            left: 35px;
+            bottom: -12px;
+            width: 25px;
+            height: 25px;
+            z-index: -1;
+            background: $white-color;
+            transform: rotate(45deg);
         }
     }
     &::before {
-        content: "\f113";
-        color: #f8b5a6;
-        display: inline-block;
-        position: relative;
-        margin-top: -15px;
+        transition: $transition;
+        content: "\ecff";
+        position: absolute;
+        left: 0;
+        top: -25px;
+        left: -25px;
+        color: $optional-color;
+        background-color: #08756f;
+        width: 60px;
+        height: 60px;
+        line-height: 61px;
+        border-radius: 50%;
+        z-index: 2;
+        text-align: center;
         font: {
+            family: 'boxicons'!important;
+            weight: normal;
             style: normal;
-            size: 50px;
-            family: Flaticon;
+            variant: normal;
+            size: 30px;
         }
     }
     .client-info {
-        margin-top: 20px;
-
+        position: relative;
+        padding-left: 58px;
+        margin: {
+            top: 32px;
+            bottom: 25px;
+            left: 27px;
+        }
         img {
-            width: 75px !important;
-            display: none !important;
-            margin-bottom: 15px;
-            border-radius: 5px;
+            width: 45px !important;
+            height: 45px !important;
+            display: inline-block !important;
+            border-radius: 50%;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: $transition;
         }
         h3 {
             margin-bottom: 0;
             color: $white-color;
             font: {
                 size: 18px;
-                weight: 700;
+                weight: 600;
             }
         }
         span {
             display: block;
-            font-weight: 300;
+            color: $optional-color;
             margin-top: 4px;
-            color: $white-color;
+            font: {
+                family: $optional-font-family;
+                weight: 600;
+            }
         }
     }
-    &::after {
-        width: 100%;
-        height: 100%;
+}
+.feedback-shape {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: -1;
+}
+.shape-rectangle {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: -2;
+}
+
+/*================================================
+Serve Area CSS
+=================================================*/
+.serve-area {
+    position: relative;
+    z-index: 1;
+    padding-bottom: 80px;
+
+    .pagination-area {
+        margin-bottom: 30px;
+    }
+}
+.single-serve-box {
+    position: relative;
+    margin-bottom: 30px;
+    z-index: 1;
+    border-radius: 5px;
+    background-color: #f7f9fc;
+    overflow: hidden;
+    transition: $transition;
+    padding: {
+        left: 48px;
+        right: 25px;
+        top: 25px;
+        bottom: 25px;
+    }
+    &::before {
         position: absolute;
         left: 0;
         top: 0;
-        content: '';
-        background-color: $main-color;
+        width: 0;
+        height: 100%;
+        background: $main-color;
         z-index: -1;
-        display: none;
+        content: '';
+        transition: $transition;
+        border-radius: 5px;
     }
-}
-.client-image {
-    position: relative;
-    text-align: center;
-    width: 100%;
-    height: 100%;
-    background: {
-        position: center center;
-        size: cover;
-        repeat: no-repeat;
-    }
-    img {
-        display: none !important;
-        width: auto !important;
-    }
-    &.bg1 {
-        background: {
-            image: url(../../assets/img/client/1.jpg);
-        }
-    }
-    &.bg2 {
-        background: {
-            image: url(../../assets/img/client/2.jpg);
-        }
-    }
-    &.bg3 {
-        background: {
-            image: url(../../assets/img/client/3.jpg);
-        }
-    }
-}
-.feedback-slides {
-    &.owl-theme {
-        .owl-stage {
-            .owl-item {
-                &::before {
-                    content: '';
-                    position: absolute;
-                    left: 0;
-                    top: 0;
-                    width: 68%;
-                    height: 100%;
-                    z-index: 1;
-                    background: {
-                        image: url(../../assets/img/1.png);
-                        position: right top;
-                        size: cover;
-                        repeat: no-repeat;
-                    }
-                }
-            }
-        }
-        .owl-nav {
-            margin-top: 0;
+    i {
+        position: absolute;
+        left: -18px;
+        top: 50%;
+        transition: $transition;
+        color: #e6e7ea;
+        transform: translateY(-50%);
+        font-size: 50px;
+
+        &::before {
             transition: $transition;
-            opacity: 0;
-            visibility: hidden;
+            font-size: 50px;
+        }
+    }
+    h3 {
+        margin-bottom: 0;
+        transition: $transition;
+        font: {
+            size: 23px;
+            weight: 700;
+        }
+    }
+    a {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 4;
+    }
+    &:hover {
+        padding-left: 74px;
 
-            [class*=owl-] {
-                position: absolute;
-                left: 50px;
-                top: 50%;
-                transform: translateY(-50%);
-                background-color: transparent !important;
-                color: $white-color;
-                outline: 0;
-                transition: $transition;
-                font-size: 50px;
+        &::before {
+            width: 100%;
+        }
+        i {
+            left: 25px;
+            color: $white-color;
+            font-size: 35px;
 
-                i {
-                    &::before {
-                        font-size: 50px;
-                    }
-                }
-                &.owl-next {
-                    left: auto;
-                    right: 50px;
-                }
+            &::before {
+                font-size: 35px;
             }
         }
-        &:hover {
-            .owl-nav {
-                opacity: 1;
-                visibility: visible;
-            }
-        }
-        .owl-dots {
-            position: absolute;
-            left: 0;
-            bottom: 15px;
-            right: 0;
-
-            .owl-dot {
-                outline: 0;
-
-                span {
-                    background-color: $white-color;
-                    transition: $transition;
-                    margin: 0 4px;
-                    border-radius: 50%;
-                    width: 12px;
-                    height: 12px;
-                }
-                &.active, &:hover {
-                    span {
-                        background-color: #3a3a3a;
-                    }
-                }
-            }
+        h3 {
+            color: $white-color;
         }
     }
 }
@@ -2174,8 +1931,8 @@ Pricing Area CSS
     padding-bottom: 80px;
 }
 .single-pricing-box {
-    background-color: $white-color;
     margin-bottom: 30px;
+    border: 1px solid #f5eafc;
     padding: 30px;
     transition: $transition;
     border-radius: 5px;
@@ -2221,15 +1978,6 @@ Pricing Area CSS
         .btn-primary {
             &::after {
                 background: linear-gradient(to right top, #a3a3a3, #9a9a9a, #909090, #878787, #7e7e7e);
-                content: '';
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-                height: 100%;
-                transition: $transition;
-                z-index: -1;
-                border-radius: 30px;
             }
         }
     }
@@ -2242,45 +1990,39 @@ Pricing Area CSS
             margin-bottom: 12px;
             color: $paragraph-color;
             position: relative;
-            padding-left: 19px;
+            padding-left: 24px;
 
             &:last-child {
                 margin-bottom: 0;
             }
             i {
                 color: $main-color;
-                font-size: 12px;
+                font-size: 22px;
                 position: absolute;
                 left: 0;
                 top: 50%;
                 transform: translateY(-50%);
-
-                &::before {
-                    font-size: 12px;
-                }
             }
         }
     }
-    &:hover, &.active {
+    &:hover {
         box-shadow: 0 0 40px 3px rgba(0, 0, 0, 0.05);
+        transform: translateY(-5px);
         background-color: $white-color;
         border-color: $white-color;
 
         .buy-btn {
             .btn-primary {
-                &::after {
-                    opacity: 0;
+                &::before {
                     visibility: hidden;
+                    opacity: 0;
+                }
+                &::after {
+                    opacity: 1;
+                    visibility: visible;
                 }
             }
         }
-    }
-}
-.tabs-item {
-    display: none;
-	
-    &:first-child {
-        display: block;
     }
 }
 .pricing-tab {
@@ -2294,7 +2036,9 @@ Pricing Area CSS
             display: inline-block;
 
             a {
-                background-color: $white-color;
+                position: relative;
+                z-index: 1;
+                background-color: #e6fcfc;
                 padding: 10px 30px 11px;
                 margin: {
                     left: -2px;
@@ -2305,15 +2049,36 @@ Pricing Area CSS
                     weight: 600;
                     size: 16px;
                 }
+                &::before {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: $gradient-color;
+                    z-index: -1;
+                    top: 0;
+                    opacity: 0;
+                    visibility: hidden;
+                    transition: $transition;
+                }
                 &:hover {
                     color: $white-color;
-                    background-color: $black-color;
+
+                    &::before {
+                        opacity: 1;
+                        visibility: visible;
+                    }
                 }
             }
             &.current {
                 a {
                     color: $white-color;
-                    background-color: $black-color;
+
+                    &::before {
+                        opacity: 1;
+                        visibility: visible;
+                    }
                 }
             }
             &:nth-child(1) {
@@ -2342,10 +2107,13 @@ Pricing Area CSS
 Blog Area CSS
 =================================================*/
 .blog-area {
+    padding-bottom: 80px;
     position: relative;
     z-index: 1;
-    padding-bottom: 80px;
 
+    &.extra-pb {
+        padding-bottom: 155px;
+    }
     .pagination-area {
         margin-bottom: 30px;
     }
@@ -2354,7 +2122,6 @@ Blog Area CSS
     margin-bottom: 30px;
     transition: $transition;
     border-radius: 5px;
-    background-color: #f4faff;
 
     .entry-thumbnail {
         a {
@@ -2365,7 +2132,7 @@ Blog Area CSS
         }
     }
     .entry-post-content {
-        padding: 20px;
+        margin-top: 20px;
 
         .entry-meta {
             margin-bottom: 6px;
@@ -2426,15 +2193,11 @@ Blog Area CSS
                 bottom: 0;
             }
         }
-        .learn-more-btn {
+        .read-more-btn {
             margin-top: 15px;
         }
     }
     &:hover {
-        box-shadow: 0 0 40px 3px rgba(0, 0, 0, 0.05);
-        transform: translateY(-5px);
-        background-color: $white-color;
-
         .entry-thumbnail {
             a {
                 img {
@@ -2448,30 +2211,48 @@ Blog Area CSS
 /*================================================
 Blog Details Area CSS
 =================================================*/
+.blog-details-area {
+    position: relative;
+    z-index: 1;
+
+    .row {
+        margin: {
+            left: -25px;
+            right: -25px;
+        }
+        .col-lg-8, .col-lg-4 {
+            padding: {
+                left: 25px;
+                right: 25px;
+            }
+        }
+    }
+}
 .blog-details {
     .article-content {
         margin-top: 30px;
 
         .entry-meta {
-            margin-bottom: 10px;
+            margin-bottom: 17px;
     
             ul {
                 padding-left: 0;
                 margin-bottom: 0;
                 list-style-type: none;
-                font-family: $optional-font-family;
     
                 li {
                     position: relative;
                     display: inline-block;
                     color: $black-color;
                     margin-right: 21px;
-                    font-size: 15px;
     
-                    span {
-                        display: inline-block;
-                        color: $black-color;
-                        font-weight: 600;
+                    img {
+                        width: 30px !important;
+                        height: 30px;
+                        border-radius: 50%;
+                        padding-right: 3px;
+                        position: relative;
+                        top: -1.5px;
                     }
                     a {
                         display: inline-block;
@@ -2489,10 +2270,10 @@ Blog Details Area CSS
                         content: '';
                         position: absolute;
                         top: 11px;
-                        right: -15px;
+                        right: -14px;
                         width: 6px;
                         height: 1px;
-                        background: $main-color;
+                        background: #bbaeae;
                     }
                     &:last-child {
                         margin-right: 0;
@@ -2520,8 +2301,8 @@ Blog Details Area CSS
                 -ms-flex-wrap: wrap;
                 flex-wrap: wrap;
                 margin: {
-                    right: -10px;
-                    left: -10px;
+                    right: -15px;
+                    left: -15px;
                     bottom: 30px;
                     top: 30px;
                 }
@@ -2530,8 +2311,8 @@ Blog Details Area CSS
                     flex: 0 0 33.3333%;
                     max-width: 33.3333%;
                     padding: {
-                        right: 10px;
-                        left: 10px;
+                        right: 15px;
+                        left: 15px;
                     }
                     figure {
                         margin-bottom: 0;
@@ -2602,7 +2383,7 @@ Blog Details Area CSS
             }
             a {
                 display: inline-block;
-                color: #818181;
+                color: #736262;
 
                 &:hover {
                     color: $main-color;
@@ -2626,6 +2407,7 @@ Blog Details Area CSS
                     display: inline-block;
         
                     a {
+                        position: relative;
                         color: $black-color;
                         background-color: #f7f7f7;
                         width: 33px;
@@ -2634,10 +2416,31 @@ Blog Details Area CSS
                         text-align: center;
                         border-radius: 50%;
                         font-size: 13px;
-                        
+                        z-index: 1;
+        
+                        &::before {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            border-radius: 50%;
+                            z-index: -1;
+                            transform: scale(.8);
+                            background: $gradient-color;
+                            opacity: 0;
+                            visibility: hidden;
+                            transition: $transition;
+                        }
                         &:hover {
                             color: $white-color;
-                            background-color: $main-color;
+        
+                            &::before {
+                                opacity: 1;
+                                visibility: visible;
+                                transform: scale(1);
+                            }
                         }
                     }
                 }
@@ -2685,9 +2488,12 @@ blockquote, .blockquote {
     }
 }
 .comments-area {
+    background-color: #f8f8f8;
+    padding: 25px 20px;
     margin-top: 30px;
 
     .comments-title {
+        position: relative;
         line-height: initial;
         margin: {
             bottom: 30px;
@@ -2695,6 +2501,16 @@ blockquote, .blockquote {
         font: {
             size: 23px;
             weight: 700;
+        }
+        &::before {
+            content: '';
+            height: 25px;
+            width: 3px;
+            left: -20px;
+            position: absolute;
+            background: $gradient-color;
+            top: 50%;
+            transform: translateY(-50%);
         }
     }
     ol, ul {
@@ -2789,10 +2605,21 @@ blockquote, .blockquote {
     }
     .comment-respond {
         .comment-reply-title {
-            margin-bottom: 0;
+            margin: 0;
+            position: relative;
             font: {
                 size: 23px;
                 weight: 700;
+            }
+            &::before {
+                content: '';
+                height: 25px;
+                width: 3px;
+                left: -20px;
+                position: absolute;
+                background: $gradient-color;
+                top: 50%;
+                transform: translateY(-50%);
             }
             #cancel-comment-reply-link {
                 font-size: 15px;
@@ -2905,123 +2732,6 @@ blockquote, .blockquote {
 }
 
 /*================================================
-Free Trial Area CSS
-=================================================*/
-.free-trial-area {
-    position: relative;
-    z-index: 1;
-
-    &::before {
-        content: '';
-        position: absolute;
-        right: 0;
-        top: 0;
-        width: 68%;
-        height: 100%;
-        z-index: 1;
-        background: {
-            image: url(../../assets/img/2.png);
-            position: left top;
-            size: cover;
-            repeat: no-repeat;
-        }
-    }
-}
-.free-trial-content {
-    position: relative;
-    z-index: 2;
-    max-width: 555px;
-    padding-left: 30px;
-    padding: {
-        top: 110px;
-        bottom: 110px;
-    }
-    h2 {
-        margin-bottom: 0;
-        color: $white-color;
-        font: {
-            size: 40px;
-            weight: 700;
-        }
-    }
-    form {
-        position: relative;
-        margin: {
-            top: 25px;
-            bottom: 10px;
-        }
-        .input-newsletter {
-            display: block;
-            width: 72%;
-            height: 45px;
-            color: $white-color;
-            border: none;
-            outline: 0;
-            background-color: $black-color;
-            border-radius: 30px;
-            padding-left: 20px;
-
-            &::placeholder {
-                color: #d5d5d5;
-            }
-        }
-        button {
-            position: absolute;
-            right: 0;
-            top: 0;
-            height: 45px;
-            border: none;
-            padding: 0 30px;
-            line-height: 45px;
-            background-color: $white-color;
-            border-radius: 30px;
-            transition: $transition;
-            color: $main-color;
-            font: {
-                family: $optional-font-family;
-                size: 16px;
-                weight: 600;
-            }
-            &:hover {
-                background-color: $optional-color;
-                color: $white-color;
-            }
-        }
-    }
-    p {
-        color: $white-color;
-        margin-bottom: 0;
-        max-width: 350px;
-    }
-    &::after {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        left: 0;
-        top: 0;
-        content: '';
-        background-color: $main-color;
-        z-index: -1;
-        display: none;
-    }
-}
-.free-trial-image {
-    position: relative;
-    text-align: center;
-    width: 100%;
-    height: 100%;
-    background: {
-        position: center center;
-        size: cover;
-        repeat: no-repeat;
-        image: url(../../assets/img/woman2.jpg);
-    }
-    img {
-        display: none;
-    }
-}
-
-/*================================================
 Page Title Area CSS
 =================================================*/
 .page-title-area {
@@ -3029,42 +2739,25 @@ Page Title Area CSS
     z-index: 1;
     padding: {
         top: 210px;
-        bottom: 140px;
+        bottom: 130px;
     }
     background: {
-        color: #000000;
+        color: $main-color;
+        image: url(../../assets/img/page-title-bg.png);
         position: center center;
         size: cover;
         repeat: no-repeat;
     }
-    &::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-        background-color: #000000;
-        opacity: .60;
-    }
-    &.item-bg1 {
-        background: {
-            image: url(../../assets/img/page-title-bg1.jpg);
-        }
-    }
-    &.item-bg2 {
-        background: {
-            image: url(../../assets/img/page-title-bg2.jpg);
-        }
-    }
-    &.item-bg3 {
-        background: {
-            image: url(../../assets/img/page-title-bg3.jpg);
-        }
+    .shape3 {
+        animation-name: rotateme;
+        animation-duration: 20s;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
     }
 }
 .page-title-content {
+    text-align: center;
+
     h2 {
         margin-bottom: 0;
         color: $white-color;
@@ -3074,11 +2767,13 @@ Page Title Area CSS
         }
     }
     ul {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
         padding-left: 0;
         list-style-type: none;
         font-family: $optional-font-family;
         margin: {
-            top: 10px;
             bottom: 0;
         }
         li {
@@ -3091,13 +2786,13 @@ Page Title Area CSS
             position: relative;
             font: {
                 weight: 600;
-                size: 16px;
+                size: 17px;
             }
             a {
-                color: $main-color;
+                color: $optional-color;
 
                 &:hover {
-                    color: $main-color;
+                    color: $optional-color;
                 }
             }
             &::before {
@@ -3155,6 +2850,1222 @@ Pagination Area CSS
 }
 
 /*================================================
+Shop Area CSS
+=================================================*/
+.woocommerce-topbar {
+    margin-bottom: 40px;
+
+    .woocommerce-result-count {
+        p {
+            font: {
+                family: $optional-font-family;
+                size: 16px;
+            }
+        }
+    }
+    .woocommerce-topbar-ordering {
+        text-align: right;
+
+        .nice-select {
+            background-color: $white-color;
+            color: $paragraph-color;
+            border-radius: 0;
+            border: none;
+            box-shadow: 0 0 29px 0 rgba(102, 102, 102, 0.1);
+            float: unset;
+            height: unset;
+            line-height: initial;
+            padding: 15px 35px 15px 20px;
+            font: {
+                family: $optional-font-family;
+                size: 16px;
+            }
+            .list {
+                background-color: $white-color;
+                box-shadow: 0 0 29px 0 rgba(102, 102, 102, 0.1);
+                border-radius: 0;
+                margin-top: 0;
+                width: 100%;
+                padding: {
+                    top: 10px;
+                    bottom: 10px;
+                }
+                .option {
+                    transition: $transition;
+                    font: {
+                        size: 15px;
+                    }
+                    padding: {
+                        left: 20px;
+                        right: 20px;
+                    }
+                    &:hover {
+                        background-color: $main-color !important;
+                        color: $white-color;
+                    }
+                    &.selected {
+                        background-color: transparent;
+                    }
+                }
+            }
+            &:after {
+                right: 20px;
+            }
+        }
+    }
+}
+.single-product-box {
+    margin-bottom: 30px;
+    background-color: $white-color;
+    box-shadow: 0 0 40px 3px rgba(0, 0, 0, 0.05);
+
+    .product-image {
+        overflow: hidden;
+        position: relative;
+        text-align: left;
+
+        a {
+            img {
+                transition: $transition;
+
+                &:nth-child(2) {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    opacity: 0;
+                    visibility: hidden;
+                    margin-left: 20px;
+                }
+            }
+        }
+        .add-to-cart-btn {
+            position: absolute;
+            bottom: -46px;
+            left: 0;
+            width: 100%;
+            background-color: $black-color;
+            color: $white-color;
+            padding: 12px 20px;
+            text-transform: uppercase;
+            opacity: 0;
+            visibility: hidden;
+            font: {
+                family: $optional-font-family;
+                size: 15px;
+                weight: 600;
+            }
+            i {
+                position: absolute;
+                right: 20px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+            &:hover {
+                background-color: $main-color;
+                color: $white-color;
+            }
+        }
+        .sale-btn {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            background-color: red;
+            color: $white-color;
+            width: 55px;
+            height: 55px;
+            line-height: 55px;
+            text-align: center;
+            border-radius: 50%;
+            text-transform: uppercase;
+            font: {
+                family: $optional-font-family;
+                weight: 600;
+            }
+        }
+    }
+    .product-content {
+        padding: 25px;
+
+        h3 {
+            margin-bottom: 8px;
+            font: {
+                size: 23px;
+                weight: 700;
+            }
+        }
+        .price {
+            color: $black-color;
+            font: {
+                family: $optional-font-family;
+                weight: 700;
+            }
+            .old {
+                text-decoration: line-through;
+                color: #828893;
+                font: {
+                    size: 13px;
+                }
+            }
+        }
+        .rating {
+            margin-top: 8px;
+            color: #ffb708;
+
+            i {
+                margin-right: -1px;
+            }
+        }
+    }
+    &:hover {
+        .product-image {
+            a {
+                img {
+                    &:nth-child(2) {
+                        opacity: 1;
+                        visibility: visible;
+                        margin-left: 0;
+                    }
+                }
+            }
+            .add-to-cart-btn {
+                bottom: 0;
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+    }
+}
+
+/*================================================
+Product Details Area CSS
+=================================================*/
+.product-details-desc {
+    h3 {
+        margin-bottom: 12px;
+        font: {
+            size: 23px;
+            weight: 700;
+        }
+    }
+    p {
+        margin-bottom: 0;
+    }
+    .price {
+        margin-bottom: 10px;
+        color: $black-color;
+        font: {
+            family: $optional-font-family;
+            weight: 700;
+        }
+        .old-price {
+            text-decoration: line-through;
+            color: #828893;
+            font: {
+                size: 13px;
+            }
+        }
+    }
+    .product-review {
+        margin-bottom: 15px;
+
+        .rating {
+            display: inline-block;
+            padding-right: 5px;
+            font-size: 14px;
+
+            i {
+                color: #ffba0a;
+            }
+        }
+        .rating-count {
+            display: inline-block;
+            color: $black-color;
+            border-bottom: 1px solid $black-color;
+            line-height: initial;
+
+            &:hover {
+                color: $main-color;
+                border-color: $main-color;
+            }
+        }
+    }
+    .product-add-to-cart {
+        margin-top: 20px;
+
+        .input-counter {
+            max-width: 130px;
+            min-width: 130px;
+            margin-right: 10px;
+            text-align: center;
+            display: inline-block;
+            position: relative;    
+
+            span {
+                position: absolute;
+                top: 0;
+                background-color: transparent;
+                cursor: pointer;
+                color: #d0d0d0;
+                width: 40px;
+                height: 100%;
+                line-height: 48px;
+                transition: $transition;
+
+                &.minus-btn {
+                    left: 0;
+                }
+                &.plus-btn {
+                    right: 0;
+                }
+                &:hover {
+                    color: $main-color;
+                }
+            }
+            input {
+                height: 45px;
+                color: $black-color;
+                outline: 0;
+                display: block;
+                border: none;
+                background-color: #f8f8f8;
+                text-align: center;
+                width: 100%;
+                font: {
+                    size: 17px;
+                    weight: 600;
+                }
+                &::placeholder {
+                    color: $black-color;
+                }
+            }
+        }
+        .btn {
+            height: 45px;
+            top: -2px;
+            position: relative;
+            padding: {
+                top: 0;
+                bottom: 0;
+            }
+            i {
+                margin-right: 2px;
+            }
+        }
+    }
+    .buy-checkbox-btn {
+        margin-top: 20px;
+
+        input {
+            display: none;
+        }
+        .cbx {
+            margin: auto;
+            -webkit-user-select: none;
+            user-select: none;
+            cursor: pointer;
+
+            span {
+                display: inline-block;
+                vertical-align: middle;
+                transform: translate3d(0, 0, 0);
+
+                &:first-child {
+                    position: relative;
+                    width: 18px;
+                    height: 18px;
+                    border-radius: 3px;
+                    transform: scale(1);
+                    vertical-align: middle;
+                    border: 1px solid #ebebeb;
+                    transition: all 0.2s ease;
+                    transition: $transition;
+
+                    svg {
+                        position: absolute;
+                        top: 3px;
+                        left: 2px;
+                        fill: none;
+                        stroke: $white-color;
+                        stroke-width: 2;
+                        stroke-linecap: round;
+                        stroke-linejoin: round;
+                        stroke-dasharray: 16px;
+                        stroke-dashoffset: 16px;
+                        transition: all 0.3s ease;
+                        transition-delay: 0.1s;
+                        transform: translate3d(0, 0, 0);
+                        transition: $transition;
+                    }
+                    &:before {
+                        content: "";
+                        width: 100%;
+                        height: 100%;
+                        background: $black-color;
+                        display: block;
+                        transform: scale(0);
+                        opacity: 1;
+                        border-radius: 50%;
+                        transition: $transition;
+                    }
+                }
+                &:last-child {
+                    padding-left: 4px;
+                    color: $paragraph-color;
+                }
+            }
+            &:hover {
+                span {
+                    &:first-child {
+                        border-color: $black-color;
+                    }
+                }
+            }
+        }
+        .inp-cbx:checked + .cbx span:first-child {
+            background: $black-color;
+            border-color: $black-color;
+            animation: wave 0.4s ease;
+        }
+        .inp-cbx:checked + .cbx span:first-child svg {
+            stroke-dashoffset: 0;
+        }
+        .inp-cbx:checked + .cbx span:first-child:before {
+            transform: scale(3.5);
+            opacity: 0;
+            transition: all 0.6s ease;
+        }
+        .item {
+            &:not(:first-child) {
+                margin-top: 15px;
+            }
+        }
+        .btn {
+            display: block;
+            width: 100%;
+        }
+        .btn-light {
+            background-color: #f2f2f2;
+            border: none;
+            padding: 11px 32px 13px;
+        }
+    }
+    .custom-payment-options {
+        margin-top: 20px;
+
+        span {
+            display: block;
+            color: $paragraph-color;
+            margin-bottom: 8px;
+        }
+        .payment-methods {
+            a {
+                display: inline-block;
+
+                img {
+                    width: 40px;
+                }
+            }
+        }
+    }
+}
+.tab {
+    .tabs_item {
+        display: none;
+        
+        &:first-child {
+            display: block;
+        }
+    }
+}
+.products-details-tab {
+    margin-top: 50px;
+
+    .tabs {
+        list-style-type: none;
+        margin-bottom: -1px;
+        padding: {
+            left: 0;
+        }
+        li {
+            display: inline-block;
+            line-height: initial;
+            margin-right: 5px;
+
+            a {
+                display: inline-block;
+                position: relative;
+                text-transform: uppercase;
+                color: $black-color;
+                border: 1px dashed #eeeeee;
+                padding: {
+                    top: 15px;
+                    bottom: 15px;
+                    right: 30px;
+                    left: 48px;
+                }
+                font: {
+                    weight: 700;
+                    family: $optional-font-family;
+                }
+                .dot {
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    left: 30px;
+                    width: 12px;
+                    height: 12px;
+                    border: 1px solid $black-color;
+                    transition: $transition;
+                    border-radius: 50%;
+        
+                    &::before {
+                        position: absolute;
+                        top: 0;
+                        content: '';
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        background: $black-color;
+                        margin: 2px;
+                        border-radius: 50%;
+                        transition: $transition;
+                    }
+                }
+                &:hover, &:focus {
+                    color: $white-color;
+                    background-color: $main-color;
+                    border-color: $main-color;
+
+                    .dot {
+                        border-color: $white-color;
+
+                        &::before {
+                            background: $white-color;
+                        }
+                    }
+                }
+            }
+            &.current {
+                a {
+                    color: $white-color;
+                    background-color: $main-color;
+                    border-color: $main-color;
+
+                    .dot {
+                        border-color: $white-color;
+
+                        &::before {
+                            background: $white-color;
+                        }
+                    }
+                }
+            }
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+    .tab_content {
+        border: 1px dashed #eeeeee;
+        padding: 30px;
+
+        .tabs_item {
+            .products-details-tab-content {
+                p {
+                    margin-bottom: 20px;
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+                .additional-information {
+                    padding-left: 0;
+                    margin-bottom: 0;
+                    list-style-type: none;
+                    text-align: left;
+        
+                    li {
+                        border: 1px solid #eeeeee;
+                        border-bottom: none;
+                        padding: 10px 15px;
+                        color: $paragraph-color;
+
+                        &:last-child {
+                            border-bottom: 1px solid #eeeeee;;
+                        }
+                        span {
+                            display: inline-block;
+                            width: 30%;
+                            color: $black-color;
+                            font: {
+                                family: $optional-font-family;
+                                size: 16px;
+                                weight: 600;
+                            }
+                        }
+                    }
+                }
+                h3 {
+                    margin-bottom: 15px;
+                    font: {
+                        size: 23px;
+                        weight: 700;
+                    }
+                }
+                .product-review-form {
+                    .review-title {
+                        position: relative;
+
+                        .rating {
+                            display: inline-block;
+
+                            .fas.fa-star {
+                                color: #ffba0a;
+                            }
+                            i {
+                                color: #ebebeb;
+                                font-size: 14px;
+                            }
+                        }
+                        p {
+                            margin-bottom: 0;
+                            display: inline-block;
+                            padding-left: 5px;
+                            line-height: initial;
+                        }
+                        .btn {
+                            position: absolute;
+                            right: 0;
+                            bottom: 0;
+                        }
+                    }
+                    .review-comments {
+                        margin-top: 35px;
+                        
+                        .review-item {
+                            margin-top: 30px;
+                            position: relative;
+                            padding-right: 200px;
+                            border-top: 1px dashed #eeeeee;
+                            padding-top: 30px;
+
+                            .rating {
+                                .fas.fa-star {
+                                    color: #ffba0a;
+                                }
+                                i {
+                                    font-size: 14px;
+                                    color: #ebebeb;
+                                }
+                            }
+                            h3 {
+                                font-size: 18px;
+                                margin: {
+                                    top: 10px;
+                                    bottom: 10px;
+                                }
+                            }
+                            span {
+                                margin-bottom: 10px;
+                                font-size: 13px;
+                                display: block;
+
+                                strong {
+                                    font-weight: 600;
+                                }
+                            }
+                            p {
+                                margin-bottom: 0;
+                            }
+                            .review-report-link {
+                                position: absolute;
+                                right: 0;
+                                color: $paragraph-color;
+                                top: 40px;
+                                text-decoration: underline;
+
+                                &:hover {
+                                    color: $main-color;
+                                }
+                            }
+                        }
+                    }
+                    .review-form {
+                        margin-top: 30px;
+
+                        form {
+                            .form-group {
+                                margin-bottom: 20px;
+
+                                label {
+                                    color: $paragraph-color;
+                                    text-transform: uppercase;
+                                    font: {
+                                        size: 14px;
+                                        weight: 600;
+                                        family: $optional-font-family;
+                                    }
+                                }
+                                textarea {
+                                    padding-top: 15px;
+                                }
+                            }
+                            .btn {
+                                margin-top: 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.related-products {
+    margin-top: 70px;
+
+    .section-title {
+        margin-bottom: 10px;
+    }
+    .single-product-box {
+        margin: {
+            bottom: 0;
+            top: 30px;
+        }
+    }
+}
+
+/*================================================
+Cart CSS
+=================================================*/
+.cart-table {
+    table {
+        margin-bottom: 0;
+
+        thead {
+            tr {
+                th {
+                    border-bottom-width: 0px;
+                    vertical-align: middle;
+                    padding: 0 0 15px;
+                    text-transform: uppercase;
+                    border: none;
+                    font: {
+                        weight: 700;
+                        family: $optional-font-family;
+                        size: 15px;
+                    }
+                }
+            }
+        }
+        tbody {
+            tr {
+                td {
+                    vertical-align: middle;
+                    color: $paragraph-color;
+                    padding: {
+                        left: 0;
+                        right: 0;
+                    }
+                    border: {
+                        color: #eaedff;
+                        left: none;
+                        right: none;
+                    }
+                    &.product-thumbnail {
+                        a {
+                            display: block;
+
+                            img {
+                                width: 80px;
+                            }
+                        }
+                    }
+                    &.product-name {
+                        font: {
+                            family: $optional-font-family;
+                            size: 15px;
+                        }
+                        a {
+                            color: $paragraph-color;
+                            font-weight: 600;
+                            display: inline-block;
+
+                            &:hover {
+                                color: $optional-color;
+                            }
+                        }
+                    }
+                    &.product-price {
+                        span {
+                            font-weight: 500;
+                        }
+                    }
+                    &.product-subtotal {
+                        .remove {
+                            color: red;
+                            float: right;
+                            position: relative;
+                            top: -1px;
+                        }
+                    }
+                    &.product-quantity {
+                        .input-counter {
+                            max-width: 130px;
+                            min-width: 130px;
+                            text-align: center;
+                            display: inline-block;
+                            position: relative;    
+                
+                            span {
+                                position: absolute;
+                                top: 0;
+                                background-color: transparent;
+                                cursor: pointer;
+                                color: #d0d0d0;
+                                width: 40px;
+                                height: 100%;
+                                line-height: 48px;
+                                transition: $transition;
+                
+                                &.minus-btn {
+                                    left: 0;
+                                }
+                                &.plus-btn {
+                                    right: 0;
+                                }
+                                &:hover {
+                                    color: $optional-color;
+                                }
+                            }
+                            input {
+                                height: 45px;
+                                color: $black-color;
+                                outline: 0;
+                                display: block;
+                                border: none;
+                                background-color: #f8f8f8;
+                                text-align: center;
+                                width: 100%;
+                                font: {
+                                    size: 17px;
+                                    weight: 600;
+                                }
+                                &::placeholder {
+                                    color: $black-color;
+                                }
+                            }
+                        }
+                    }
+                    &.product-subtotal {
+                        overflow: hidden;
+
+                        span {
+                            font-weight: 500;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.cart-buttons {
+    margin-top: 30px;
+
+    .shopping-coupon-code {
+        position: relative;
+        max-width: 430px;
+
+        button {
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 45px;
+            background: $optional-color;
+            color: $white-color;
+            border: none;
+            padding: 0 25px;
+            font-weight: 700;
+            outline: 0;
+            transition: $transition;
+
+            &:hover {
+                background-color: $main-color;
+            }
+        }
+    }
+}
+.cart-totals {
+    background: $white-color;
+    padding: 40px;
+    max-width: 620px;
+    box-shadow: 0 2px 48px 0 rgba(0, 0, 0, 0.08);
+    border-radius: 5px;
+    margin: {
+        left: auto;
+        top: 50px;
+    }
+    h3 {
+        margin-bottom: 25px;
+        font: {
+            size: 23px;
+            weight: 700;
+        }
+    }
+    ul {
+        padding: 0;
+        margin: 0 0 25px;
+        list-style-type: none;
+        
+        li {
+            border: 1px solid #eaedff;
+            padding: 10px 15px;
+            color: $black-color;
+            overflow: hidden;
+            font: {
+                weight: 700;
+                family: $optional-font-family;
+                size: 15px;
+            }
+            &:first-child {
+                border: {
+                    bottom: none;
+                }
+            }
+            &:last-child {
+                border: {
+                    top: none;
+                }
+            }
+            span {
+                float: right;
+                color: $paragraph-color;
+                font: {
+                    weight: normal;
+                    family: $main-font-family;
+                    size: 14px;
+                }
+            }
+        }
+    }
+}
+
+/*================================================
+Checkout CSS
+=================================================*/
+.user-actions {
+    box-shadow: 0 2px 48px 0 rgba(0, 0, 0, 0.08);
+    background: $white-color;
+    padding: 18px 20px 15px;
+    margin-bottom: 65px;
+    border-top: 3px solid $main-color;
+    position: relative;
+
+    &::before {
+        content: '';
+        position: absolute;
+        right: 0;
+        bottom: -35px;
+        width: 100%;
+        height: 1px;
+        background: #eeeeee;
+    }
+    i {
+        color: $main-color;
+        margin-right: 2px;
+    }
+    span {
+        display: inline-block;
+        font-weight: 600;
+        color: $main-color;
+
+        a {
+            display: inline-block;
+            color: $black-color;
+
+            &:hover, &:focus {
+                color: $main-color;
+            }
+        }
+    }
+}
+.checkout-area {
+    .title {
+        margin-bottom: 25px;
+        font: {
+            size: 23px;
+            weight: 700;
+        }
+    }
+}
+.billing-details {
+    .form-group {
+        margin-bottom: 20px;
+
+        label {
+            display: block;
+            color: $paragraph-color;
+            margin-bottom: 7px;
+            font: {
+                size: 14px;
+                weight: 600;
+                family: $optional-font-family;
+            }
+            .required {
+                color: red;
+            }
+        }
+        .nice-select {
+            float: unset;
+            line-height: 45px;
+            color: $paragraph-color;
+            font-weight: 600;
+            font-size: 13px;
+            padding: {
+                top: 0;
+                bottom: 0;
+            }
+            .list {
+                background-color: $white-color;
+                box-shadow: 0px 0px 29px 0px rgba(102, 102, 102, 0.1);
+                border-radius: 0;
+                margin-top: 0;
+                width: 100%;
+                padding: {
+                    top: 10px;
+                    bottom: 10px;
+                }
+                .option {
+                    transition: $transition;
+                    padding: {
+                        left: 20px;
+                        right: 20px;
+                    }
+                    &:hover {
+                        background-color: $optional-color !important;
+                        color: $white-color;
+                    }
+                    &.selected {
+                        background-color: transparent;
+                    }
+                }
+            }
+            &:after {
+                right: 20px;
+            }
+        }
+        textarea {
+            padding-top: 13px;
+        }
+    }
+    .form-check {
+        margin-bottom: 20px;
+        font-family: $optional-font-family;
+
+        .form-check-label {
+            color: $paragraph-color;
+        }
+        label {
+            position: relative;
+            left: -3px;
+            top: 1px;
+            font: {
+                size: 14px;
+                weight: 600;
+            }
+        }
+    }
+    .col-lg-12 {
+        &:last-child {
+            .form-group {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+.order-details {
+    .order-table {
+        table {
+            margin-bottom: 0;
+    
+            thead {
+                tr {
+                    th {
+                        border-bottom-width: 0;
+                        vertical-align: middle;
+                        border-color: #eaedff;
+                        padding: {
+                            left: 20px;
+                            top: 15px;
+                            right: 20px;
+                            bottom: 15px;
+                        }
+                        font: {
+                            weight: 700;
+                            family: $optional-font-family;
+                            size: 15px;
+                        }
+                    }
+                }
+            }
+            tbody {
+                tr {
+                    td {
+                        vertical-align: middle;
+                        color: $paragraph-color;
+                        border-color: #eaedff;
+                        padding: {
+                            left: 20px;
+                            right: 20px;
+                        }
+                        &.product-name {
+                            font: {
+                                family: $optional-font-family;
+                                size: 15px;
+                            }
+                            a {
+                                color: $paragraph-color;
+                                display: inline-block;
+                                font: {
+                                    weight: 500;
+                                }
+                                &:hover {
+                                    color: $main-color;
+                                }
+                            }
+                        }
+                        &.order-subtotal, &.order-shipping , &.total-price {
+                            font: {
+                                family: $optional-font-family;
+                                size: 15px;
+                            }
+                            span {
+                                color: $black-color;
+                                font-weight: 600;
+                            }
+                        }
+                        &.shipping-price, &.order-subtotal-price, &.product-subtotal {
+                            font-weight: 600;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .payment-box {
+        background-color: $white-color;
+        box-shadow: 0 2px 28px 0 rgba(0, 0, 0, 0.06);
+        margin-top: 30px;
+        padding: 30px;
+        
+        .payment-method {
+            p {
+                font: {
+                    size: 14px;
+                }
+                [type="radio"] {
+                    &:checked, &:not(:checked) {
+                        display: none;
+                    }
+                }
+                [type="radio"] {
+                    &:checked, &:not(:checked) {
+                        + label {
+                            padding-left: 27px;
+                            cursor: pointer;
+                            display: block;
+                            color: $black-color;
+                            position: relative;
+                            margin-bottom: 8px;
+                            font: {
+                                weight: 600;
+                            }
+                            &::before {
+                                content: '';
+                                position: absolute;
+                                left: 0;
+                                top: 3px;
+                                width: 18px;
+                                height: 18px;
+                                border: 1px solid #dddddd;
+                                border-radius: 50%;
+                                background: $white-color;
+                            }
+                            &::after {
+                                content: '';
+                                width: 12px;
+                                height: 12px;
+                                background: $main-color;
+                                position: absolute;
+                                top: 6px;
+                                left: 3px;
+                                border-radius: 50%;
+                                transition: $transition;
+                            }
+                        }
+                    }
+                }
+                [type="radio"] {
+                    &:not(:checked) {
+                        + label {
+                            &::after {
+                                opacity: 0;
+                                visibility: hidden;
+                                transform: scale(0);
+                            }
+                        }
+                    }
+                }
+                [type="radio"] {
+                    &:checked {
+                        + label {
+                            &::after {
+                                opacity: 1;
+                                visibility: visible;
+                                transform: scale(1);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .btn {
+            &.order-btn {
+                display: block;
+                margin-top: 25px;
+                box-shadow: 0px 5px 28.5px 1.5px rgba(149, 152, 200, .2);
+            }
+        }
+    }
+}
+
+/*================================================
+404 Error Area CSS
+=================================================*/
+.error-area {
+    height: 100vh;
+}
+.error-content {
+    text-align: center;
+    margin: 0 auto;
+    max-width: 700px;
+
+    h3 {
+        font: {
+            size: 40px;
+            weight: 700;
+        }
+        margin: {
+            top: 30px;
+            bottom: 17px;
+        }
+    }
+    p {
+        max-width: 520px;
+        margin: 0 auto 20px;
+    }
+}
+
+/*================================================
 Sidebar Area CSS
 =================================================*/
 .widget-area {
@@ -3177,7 +4088,7 @@ Sidebar Area CSS
             &::before {
                 content: '';
                 position: absolute;
-                background: $main-color;
+                background: $gradient-color;
                 bottom: -1px;
                 left: 0;
                 width: 50px;
@@ -3224,12 +4135,41 @@ Sidebar Area CSS
                 z-index: 1;
                 border: none;
                 color: $white-color;
-                background-color: $main-color;
-                transition: $transition;
+                background-color: transparent;
 
+                &::before {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    z-index: -1;
+                    background: $gradient-color;
+                    top: 0;
+                    transition: $transition;
+                }
+                &::after {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    z-index: -1;
+                    background: $optional-gradient-color;
+                    top: 0;
+                    transition: $transition;
+                    opacity: 0;
+                    visibility: hidden;
+                }
                 &:hover {
-                    background-color: $optional-color;
-                    color: $white-color;
+                    &::before {
+                        opacity: 0;
+                        visibility: hidden;
+                    }
+                    &::after {
+                        opacity: 1;
+                        visibility: visible;
+                    }
                 }
             }
         }
@@ -3519,67 +4459,42 @@ Sidebar Area CSS
             }
             padding: 6px 13px;
             border: 1px dashed #eeeeee;
+            position: relative;
             margin: {
                 top: 8px;
                 right: 4px;
             }
+            &::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background: $gradient-color;
+                z-index: -1;
+                opacity: 0;
+                visibility: hidden;
+                transition: $transition;
+                transform: scale(.8);
+            }
             &:hover, &:focus {
                 color: $white-color;
-                background-color: $main-color;
                 border-color: $main-color;
+
+                &::before {
+                    opacity: 1;
+                    visibility: visible;
+                    transform: scale(1);
+                }
             }
         }
-    }
-}
-
-/*================================================
-404 Error Area CSS
-=================================================*/
-.error-area {
-    height: 100vh;
-}
-.error-content {
-    text-align: center;
-    margin: 0 auto;
-    max-width: 700px;
-
-    h3 {
-        font: {
-            size: 40px;
-            weight: 700;
-        }
-        margin: {
-            top: 30px;
-            bottom: 17px;
-        }
-    }
-    p {
-        max-width: 520px;
-        margin: 0 auto 20px;
     }
 }
 
 /*================================================
 FAQ Area CSS
 =================================================*/
-.faq-content {
-    .section-title {
-        text-align: left;
-        max-width: 100%;
-        margin: {
-            left: 0;
-            right: 0;
-            bottom: 20px;
-        }
-        p {
-            max-width: 100%;
-            margin: {
-                left: 0;
-                right: 0;
-            }
-        }
-    }
-}
 .faq-accordion {
     .accordion {
         list-style-type: none;
@@ -3604,7 +4519,7 @@ FAQ Area CSS
             border-bottom: 1px solid transparent;
             margin-bottom: -1px;
             font: {
-                size: 15px;
+                size: 16px;
                 weight: 700;
                 family: $optional-font-family;
             }
@@ -3652,11 +4567,9 @@ FAQ Area CSS
     margin-top: 110px;
 }
 .faq-contact-form {
-    text-align: center;
+    padding-left: 30px;
 
     form {
-        padding-left: 50px;
-        
         .form-control {
             background-color: $white-color;
             border: none;
@@ -3719,6 +4632,7 @@ FAQ Area CSS
         }
         #msgSubmit {
             margin-bottom: 0;
+            text-align: left !important;
 
             &.text-danger, &.text-success {
                 margin-top: 8px;
@@ -3839,6 +4753,7 @@ Coming Soon Area CSS
         height: 100%;
         position: relative;
         text-align: center;
+        overflow: hidden;
         z-index: 1;
         background: {
             image: url(../../assets/img/coming-soon-bg.jpg);
@@ -3904,1215 +4819,70 @@ Coming Soon Area CSS
             opacity: .7;
             z-index: -1;
         }
-    }
-}
-
-/*================================================
-Shop Area CSS
-=================================================*/
-.woocommerce-topbar {
-    margin-bottom: 40px;
-
-    .woocommerce-result-count {
-        p {
-            font: {
-                family: $optional-font-family;
-                size: 16px;
-            }
-        }
-    }
-    .woocommerce-topbar-ordering {
-        text-align: right;
-
-        .nice-select {
+        .bg-shape1 {
+            position: absolute;
+            left: -50px;
+            top: -50px;
             background-color: $white-color;
-            color: $paragraph-color;
-            border-radius: 0;
-            border: none;
-            box-shadow: 0 0 29px 0 rgba(102, 102, 102, 0.1);
-            float: unset;
-            height: unset;
-            line-height: initial;
-            padding: 15px 35px 15px 20px;
-            font: {
-                family: $optional-font-family;
-                size: 16px;
-            }
-            .list {
-                background-color: $white-color;
-                box-shadow: 0 0 29px 0 rgba(102, 102, 102, 0.1);
-                border-radius: 0;
-                margin-top: 0;
-                width: 100%;
-                padding: {
-                    top: 10px;
-                    bottom: 10px;
-                }
-                .option {
-                    transition: $transition;
-                    font: {
-                        size: 15px;
-                    }
-                    padding: {
-                        left: 20px;
-                        right: 20px;
-                    }
-                    &:hover {
-                        background-color: $main-color !important;
-                        color: $white-color;
-                    }
-                    &.selected {
-                        background-color: transparent;
-                    }
-                }
-            }
-            &:after {
-                right: 20px;
-            }
-        }
-    }
-}
-.single-product-box {
-    margin-bottom: 30px;
-    text-align: center;
-    background-color: $white-color;
-    box-shadow: 0 0 40px 3px rgba(0, 0, 0, 0.05);
+            width: 100px;
+            height: 100px;
+            transform: rotate(-45deg);
+            z-index: -1;
 
-    .product-image {
-        overflow: hidden;
-        position: relative;
-        text-align: left;
-
-        a {
             img {
-                transition: $transition;
-
-                &:nth-child(2) {
-                    position: absolute;
-                    left: 0;
-                    top: 0;
-                    opacity: 0;
-                    visibility: hidden;
-                    margin-top: 20px;
-                }
-            }
-        }
-        .add-to-cart-btn {
-            position: absolute;
-            bottom: -46px;
-            left: 0;
-            width: 100%;
-            background-color: $black-color;
-            color: $white-color;
-            padding: 12px 20px;
-            text-transform: uppercase;
-            opacity: 0;
-            visibility: hidden;
-            font: {
-                family: $optional-font-family;
-                size: 15px;
-                weight: 600;
-            }
-            i {
-                position: absolute;
-                right: 20px;
-                top: 50%;
-                transform: translateY(-50%);
-            }
-            &:hover {
-                background-color: $main-color;
-                color: $white-color;
-            }
-        }
-        .sale-btn {
-            position: absolute;
-            left: 20px;
-            top: 20px;
-            background-color: red;
-            color: $white-color;
-            width: 55px;
-            height: 55px;
-            line-height: 55px;
-            text-align: center;
-            border-radius: 50%;
-            text-transform: uppercase;
-            font: {
-                family: $optional-font-family;
-                weight: 600;
-            }
-        }
-    }
-    .product-content {
-        padding: 25px;
-
-        h3 {
-            margin-bottom: 8px;
-            font: {
-                size: 23px;
-                weight: 700;
-            }
-        }
-        .price {
-            color: $black-color;
-            font: {
-                family: $optional-font-family;
-                weight: 700;
-            }
-            .old {
-                text-decoration: line-through;
-                color: #828893;
-                font: {
-                    size: 13px;
-                }
-            }
-        }
-        .rating {
-            margin-top: 8px;
-            color: #ffb708;
-
-            i {
-                margin-right: -1px;
-            }
-        }
-    }
-    &:hover {
-        .product-image {
-            a {
-                img {
-                    &:nth-child(2) {
-                        opacity: 1;
-                        visibility: visible;
-                        margin-top: 0;
-                    }
-                }
-            }
-            .add-to-cart-btn {
-                bottom: 0;
-                opacity: 1;
-                visibility: visible;
-            }
-        }
-    }
-}
-
-/*================================================
-Product Details Area CSS
-=================================================*/
-.product-details-desc {
-    h3 {
-        margin-bottom: 12px;
-        font: {
-            size: 23px;
-            weight: 700;
-        }
-    }
-    p {
-        margin-bottom: 0;
-    }
-    .price {
-        margin-bottom: 10px;
-        color: $black-color;
-        font: {
-            family: $optional-font-family;
-            weight: 700;
-        }
-        .old-price {
-            text-decoration: line-through;
-            color: #828893;
-            font: {
-                size: 13px;
-            }
-        }
-    }
-    .product-review {
-        margin-bottom: 15px;
-
-        .rating {
-            display: inline-block;
-            padding-right: 5px;
-            font-size: 14px;
-
-            i {
-                color: #ffba0a;
-            }
-        }
-        .rating-count {
-            display: inline-block;
-            color: $black-color;
-            border-bottom: 1px solid $black-color;
-            line-height: initial;
-
-            &:hover {
-                color: $main-color;
-                border-color: $main-color;
-            }
-        }
-    }
-    .product-add-to-cart {
-        margin-top: 20px;
-
-        .input-counter {
-            max-width: 130px;
-            min-width: 130px;
-            margin-right: 10px;
-            text-align: center;
-            display: inline-block;
-            position: relative;    
-
-            span {
-                position: absolute;
-                top: 0;
-                background-color: transparent;
-                cursor: pointer;
-                color: #d0d0d0;
-                width: 40px;
-                height: 100%;
-                line-height: 48px;
-                transition: $transition;
-
-                &.minus-btn {
-                    left: 0;
-                }
-                &.plus-btn {
-                    right: 0;
-                }
-                &:hover {
-                    color: $main-color;
-                }
-            }
-            input {
-                height: 45px;
-                color: $black-color;
-                outline: 0;
                 display: block;
-                border: none;
-                background-color: #f8f8f8;
-                text-align: center;
-                width: 100%;
-                font: {
-                    size: 17px;
-                    weight: 600;
-                }
-                &::placeholder {
-                    color: $black-color;
-                }
+                position: absolute;
+                left: 40px;
+                top: 70px;
+                animation-name: rotateme;
+                animation-duration: 20s;
+                animation-iteration-count: infinite;
+                animation-timing-function: linear;
             }
         }
-        .btn {
-            height: 45px;
-            top: -2px;
-            position: relative;
-            padding: {
-                top: 0;
-                bottom: 0;
-            }
-            i {
-                margin-right: 2px;
-            }
-        }
-    }
-    .buy-checkbox-btn {
-        margin-top: 20px;
-
-        input {
-            display: none;
-        }
-        .cbx {
-            margin: auto;
-            -webkit-user-select: none;
-            user-select: none;
-            cursor: pointer;
-
-            span {
-                display: inline-block;
-                vertical-align: middle;
-                transform: translate3d(0, 0, 0);
-
-                &:first-child {
-                    position: relative;
-                    width: 18px;
-                    height: 18px;
-                    border-radius: 3px;
-                    transform: scale(1);
-                    vertical-align: middle;
-                    border: 1px solid #ebebeb;
-                    transition: all 0.2s ease;
-                    transition: $transition;
-
-                    svg {
-                        position: absolute;
-                        top: 3px;
-                        left: 2px;
-                        fill: none;
-                        stroke: $white-color;
-                        stroke-width: 2;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        stroke-dasharray: 16px;
-                        stroke-dashoffset: 16px;
-                        transition: all 0.3s ease;
-                        transition-delay: 0.1s;
-                        transform: translate3d(0, 0, 0);
-                        transition: $transition;
-                    }
-                    &:before {
-                        content: "";
-                        width: 100%;
-                        height: 100%;
-                        background: $black-color;
-                        display: block;
-                        transform: scale(0);
-                        opacity: 1;
-                        border-radius: 50%;
-                        transition: $transition;
-                    }
-                }
-                &:last-child {
-                    padding-left: 4px;
-                    color: $paragraph-color;
-                }
-            }
-            &:hover {
-                span {
-                    &:first-child {
-                        border-color: $black-color;
-                    }
-                }
-            }
-        }
-        .inp-cbx:checked + .cbx span:first-child {
-            background: $black-color;
-            border-color: $black-color;
-            animation: wave 0.4s ease;
-        }
-        .inp-cbx:checked + .cbx span:first-child svg {
-            stroke-dashoffset: 0;
-        }
-        .inp-cbx:checked + .cbx span:first-child:before {
-            transform: scale(3.5);
-            opacity: 0;
-            transition: all 0.6s ease;
-        }
-        .item {
-            &:not(:first-child) {
-                margin-top: 15px;
-            }
-        }
-        .btn {
-            display: block;
-            width: 100%;
-        }
-        .btn-light {
-            background-color: #f2f2f2;
-        }
-    }
-    .custom-payment-options {
-        margin-top: 20px;
-
-        span {
-            display: block;
-            color: $paragraph-color;
-            margin-bottom: 8px;
-        }
-        .payment-methods {
-            a {
-                display: inline-block;
-
-                img {
-                    width: 40px;
-                }
-            }
-        }
-    }
-}
-.tab {
-    .tabs_item {
-        display: none;
-        
-        &:first-child {
-            display: block;
-        }
-    }
-}
-.products-details-tab {
-    margin-top: 50px;
-
-    .tabs {
-        list-style-type: none;
-        margin-bottom: -1px;
-        padding: {
-            left: 0;
-        }
-        li {
-            display: inline-block;
-            line-height: initial;
-            margin-right: 5px;
-
-            a {
-                display: inline-block;
-                position: relative;
-                text-transform: uppercase;
-                color: $black-color;
-                border: 1px dashed #eeeeee;
-                padding: {
-                    top: 15px;
-                    bottom: 15px;
-                    right: 30px;
-                    left: 48px;
-                }
-                font: {
-                    weight: 700;
-                    family: $optional-font-family;
-                }
-                .dot {
-                    position: absolute;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    left: 30px;
-                    width: 12px;
-                    height: 12px;
-                    border: 1px solid $black-color;
-                    transition: $transition;
-                    border-radius: 50%;
-        
-                    &::before {
-                        position: absolute;
-                        top: 0;
-                        content: '';
-                        left: 0;
-                        right: 0;
-                        bottom: 0;
-                        background: $black-color;
-                        margin: 2px;
-                        border-radius: 50%;
-                        transition: $transition;
-                    }
-                }
-                &:hover, &:focus {
-                    color: $white-color;
-                    background-color: $main-color;
-                    border-color: $main-color;
-
-                    .dot {
-                        border-color: $white-color;
-
-                        &::before {
-                            background: $white-color;
-                        }
-                    }
-                }
-            }
-            &.current {
-                a {
-                    color: $white-color;
-                    background-color: $main-color;
-                    border-color: $main-color;
-
-                    .dot {
-                        border-color: $white-color;
-
-                        &::before {
-                            background: $white-color;
-                        }
-                    }
-                }
-            }
-            &:last-child {
-                margin-right: 0;
-            }
-        }
-    }
-    .tab_content {
-        border: 1px dashed #eeeeee;
-        padding: 30px;
-
-        .tabs_item {
-            .products-details-tab-content {
-                p {
-                    margin-bottom: 20px;
-
-                    &:last-child {
-                        margin-bottom: 0;
-                    }
-                }
-                .additional-information {
-                    padding-left: 0;
-                    margin-bottom: 0;
-                    list-style-type: none;
-                    text-align: left;
-        
-                    li {
-                        border: 1px solid #eeeeee;
-                        border-bottom: none;
-                        padding: 10px 15px;
-                        color: $paragraph-color;
-
-                        &:last-child {
-                            border-bottom: 1px solid #eeeeee;;
-                        }
-                        span {
-                            display: inline-block;
-                            width: 30%;
-                            color: $black-color;
-                            font: {
-                                family: $optional-font-family;
-                                size: 16px;
-                                weight: 600;
-                            }
-                        }
-                    }
-                }
-                h3 {
-                    margin-bottom: 15px;
-                    font: {
-                        size: 23px;
-                        weight: 700;
-                    }
-                }
-                .product-review-form {
-                    .review-title {
-                        position: relative;
-
-                        .rating {
-                            display: inline-block;
-
-                            .fas.fa-star {
-                                color: #ffba0a;
-                            }
-                            i {
-                                color: #ebebeb;
-                                font-size: 14px;
-                            }
-                        }
-                        p {
-                            margin-bottom: 0;
-                            display: inline-block;
-                            padding-left: 5px;
-                            line-height: initial;
-                        }
-                        .btn {
-                            position: absolute;
-                            right: 0;
-                            bottom: 0;
-                        }
-                    }
-                    .review-comments {
-                        margin-top: 35px;
-                        
-                        .review-item {
-                            margin-top: 30px;
-                            position: relative;
-                            padding-right: 200px;
-                            border-top: 1px dashed #eeeeee;
-                            padding-top: 30px;
-
-                            .rating {
-                                .fas.fa-star {
-                                    color: #ffba0a;
-                                }
-                                i {
-                                    font-size: 14px;
-                                    color: #ebebeb;
-                                }
-                            }
-                            h3 {
-                                font-size: 18px;
-                                margin: {
-                                    top: 10px;
-                                    bottom: 10px;
-                                }
-                            }
-                            span {
-                                margin-bottom: 10px;
-                                font-size: 13px;
-                                display: block;
-
-                                strong {
-                                    font-weight: 600;
-                                }
-                            }
-                            p {
-                                margin-bottom: 0;
-                            }
-                            .review-report-link {
-                                position: absolute;
-                                right: 0;
-                                color: $paragraph-color;
-                                top: 40px;
-                                text-decoration: underline;
-
-                                &:hover {
-                                    color: $main-color;
-                                }
-                            }
-                        }
-                    }
-                    .review-form {
-                        margin-top: 30px;
-
-                        form {
-                            .form-group {
-                                margin-bottom: 20px;
-
-                                label {
-                                    color: $paragraph-color;
-                                    text-transform: uppercase;
-                                    font: {
-                                        size: 14px;
-                                        weight: 600;
-                                        family: $optional-font-family;
-                                    }
-                                }
-                                textarea {
-                                    padding-top: 15px;
-                                }
-                            }
-                            .btn {
-                                margin-top: 0;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-.related-products {
-    margin-top: 70px;
-
-    .section-title {
-        margin-bottom: 10px;
-    }
-    .single-product-box {
-        margin: {
-            bottom: 0;
-            top: 30px;
-        }
-    }
-}
-
-/*================================================
-Cart Area CSS
-=================================================*/
-.cart-table {
-    table {
-        margin-bottom: 0;
-
-        thead {
-            tr {
-                th {
-                    border-bottom-width: 0px;
-                    vertical-align: middle;
-                    padding: 0 0 15px;
-                    text-transform: uppercase;
-                    border: none;
-                    font: {
-                        weight: 700;
-                        family: $optional-font-family;
-                        size: 15px;
-                    }
-                }
-            }
-        }
-        tbody {
-            tr {
-                td {
-                    vertical-align: middle;
-                    color: $paragraph-color;
-                    padding: {
-                        left: 0;
-                        right: 0;
-                    }
-                    border: {
-                        color: #eaedff;
-                        left: none;
-                        right: none;
-                    }
-                    &.product-thumbnail {
-                        a {
-                            display: block;
-
-                            img {
-                                width: 80px;
-                            }
-                        }
-                    }
-                    &.product-name {
-                        font: {
-                            family: $optional-font-family;
-                            size: 15px;
-                        }
-                        a {
-                            color: $paragraph-color;
-                            font-weight: 600;
-                            display: inline-block;
-
-                            &:hover {
-                                color: $optional-color;
-                            }
-                        }
-                    }
-                    &.product-price {
-                        span {
-                            font-weight: 500;
-                        }
-                    }
-                    &.product-subtotal {
-                        .remove {
-                            color: red;
-                            float: right;
-                            position: relative;
-                            top: -1px;
-                        }
-                    }
-                    &.product-quantity {
-                        .input-counter {
-                            max-width: 130px;
-                            min-width: 130px;
-                            text-align: center;
-                            display: inline-block;
-                            position: relative;    
-                
-                            span {
-                                position: absolute;
-                                top: 0;
-                                background-color: transparent;
-                                cursor: pointer;
-                                color: #d0d0d0;
-                                width: 40px;
-                                height: 100%;
-                                line-height: 48px;
-                                transition: $transition;
-                
-                                &.minus-btn {
-                                    left: 0;
-                                }
-                                &.plus-btn {
-                                    right: 0;
-                                }
-                                &:hover {
-                                    color: $optional-color;
-                                }
-                            }
-                            input {
-                                height: 45px;
-                                color: $black-color;
-                                outline: 0;
-                                display: block;
-                                border: none;
-                                background-color: #f8f8f8;
-                                text-align: center;
-                                width: 100%;
-                                font: {
-                                    size: 17px;
-                                    weight: 600;
-                                }
-                                &::placeholder {
-                                    color: $black-color;
-                                }
-                            }
-                        }
-                    }
-                    &.product-subtotal {
-                        overflow: hidden;
-
-                        span {
-                            font-weight: 500;
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-.cart-buttons {
-    margin-top: 30px;
-
-    .shopping-coupon-code {
-        position: relative;
-        max-width: 430px;
-
-        button {
+        .bg-shape2 {
             position: absolute;
-            right: 0;
-            top: 0;
-            height: 45px;
-            background: $main-color;
-            color: $white-color;
-            border: none;
-            padding: 0 25px;
-            font-weight: 700;
-            outline: 0;
-            transition: $transition;
+            left: -50px;
+            bottom: -50px;
+            background-color: $white-color;
+            width: 100px;
+            height: 100px;
+            transform: rotate(-45deg);
+            z-index: -1;
 
-            &:hover {
-                background-color: $optional-color;
-            }
-        }
-    }
-}
-.cart-totals {
-    background: $white-color;
-    padding: 40px;
-    max-width: 620px;
-    box-shadow: 0 2px 48px 0 rgba(0, 0, 0, 0.08);
-    border-radius: 5px;
-    margin: {
-        left: auto;
-        top: 50px;
-    }
-    h3 {
-        margin-bottom: 25px;
-        font: {
-            size: 23px;
-            weight: 700;
-        }
-    }
-    ul {
-        padding: 0;
-        margin: 0 0 25px;
-        list-style-type: none;
-        
-        li {
-            border: 1px solid #eaedff;
-            padding: 10px 15px;
-            color: $black-color;
-            overflow: hidden;
-            font: {
-                weight: 700;
-                family: $optional-font-family;
-                size: 15px;
-            }
-            &:first-child {
-                border: {
-                    bottom: none;
-                }
-            }
-            &:last-child {
-                border: {
-                    top: none;
-                }
-            }
-            span {
-                float: right;
-                color: $paragraph-color;
-                font: {
-                    weight: normal;
-                    family: $main-font-family;
-                    size: 14px;
-                }
-            }
-        }
-    }
-}
-
-/*================================================
-Checkout Area CSS
-=================================================*/
-.user-actions {
-    box-shadow: 0 2px 48px 0 rgba(0, 0, 0, 0.08);
-    background: $white-color;
-    padding: 18px 20px 15px;
-    margin-bottom: 65px;
-    border-top: 3px solid $main-color;
-    position: relative;
-
-    &::before {
-        content: '';
-        position: absolute;
-        right: 0;
-        bottom: -35px;
-        width: 100%;
-        height: 1px;
-        background: #eeeeee;
-    }
-    i {
-        color: $main-color;
-        margin-right: 2px;
-    }
-    span {
-        display: inline-block;
-        font-weight: 600;
-        color: $main-color;
-
-        a {
-            display: inline-block;
-            color: $black-color;
-
-            &:hover, &:focus {
-                color: $main-color;
-            }
-        }
-    }
-}
-.checkout-area {
-    .title {
-        margin-bottom: 25px;
-        font: {
-            size: 23px;
-            weight: 700;
-        }
-    }
-}
-.billing-details {
-    .form-group {
-        margin-bottom: 20px;
-
-        label {
-            display: block;
-            color: $paragraph-color;
-            margin-bottom: 7px;
-            font: {
-                size: 14px;
-                weight: 600;
-                family: $optional-font-family;
-            }
-            .required {
-                color: red;
-            }
-        }
-        .nice-select {
-            float: unset;
-            line-height: 45px;
-            color: $paragraph-color;
-            font-weight: 600;
-            font-size: 13px;
-            padding: {
-                top: 0;
-                bottom: 0;
-            }
-            .list {
-                background-color: $white-color;
-                box-shadow: 0px 0px 29px 0px rgba(102, 102, 102, 0.1);
-                border-radius: 0;
-                margin-top: 0;
-                width: 100%;
-                padding: {
-                    top: 10px;
-                    bottom: 10px;
-                }
-                .option {
-                    transition: $transition;
-                    padding: {
-                        left: 20px;
-                        right: 20px;
-                    }
-                    &:hover {
-                        background-color: $optional-color !important;
-                        color: $white-color;
-                    }
-                    &.selected {
-                        background-color: transparent;
-                    }
-                }
-            }
-            &:after {
-                right: 20px;
-            }
-        }
-        textarea {
-            padding-top: 13px;
-        }
-    }
-    .form-check {
-        margin-bottom: 20px;
-        font-family: $optional-font-family;
-
-        .form-check-label {
-            color: $paragraph-color;
-        }
-        label {
-            position: relative;
-            left: -3px;
-            top: 1px;
-            font: {
-                size: 14px;
-                weight: 600;
-            }
-        }
-    }
-    .col-lg-12 {
-        &:last-child {
-            .form-group {
-                margin-bottom: 0;
-            }
-        }
-    }
-}
-.order-details {
-    .order-table {
-        table {
-            margin-bottom: 0;
-    
-            thead {
-                tr {
-                    th {
-                        border-bottom-width: 0;
-                        vertical-align: middle;
-                        border-color: #eaedff;
-                        padding: {
-                            left: 20px;
-                            top: 15px;
-                            right: 20px;
-                            bottom: 15px;
-                        }
-                        font: {
-                            weight: 700;
-                            family: $optional-font-family;
-                            size: 15px;
-                        }
-                    }
-                }
-            }
-            tbody {
-                tr {
-                    td {
-                        vertical-align: middle;
-                        color: $paragraph-color;
-                        border-color: #eaedff;
-                        padding: {
-                            left: 20px;
-                            right: 20px;
-                        }
-                        &.product-name {
-                            font: {
-                                family: $optional-font-family;
-                                size: 15px;
-                            }
-                            a {
-                                color: $paragraph-color;
-                                display: inline-block;
-                                font: {
-                                    weight: 500;
-                                }
-                                &:hover {
-                                    color: $main-color;
-                                }
-                            }
-                        }
-                        &.order-subtotal, &.order-shipping , &.total-price {
-                            font: {
-                                family: $optional-font-family;
-                                size: 15px;
-                            }
-                            span {
-                                color: $black-color;
-                                font-weight: 600;
-                            }
-                        }
-                        &.shipping-price, &.order-subtotal-price, &.product-subtotal {
-                            font-weight: 600;
-                        }
-                    }
-                }
-            }
-        }
-    }
-    .payment-box {
-        background-color: $white-color;
-        box-shadow: 0 2px 28px 0 rgba(0, 0, 0, 0.06);
-        margin-top: 30px;
-        padding: 30px;
-        
-        .payment-method {
-            p {
-                font: {
-                    size: 14px;
-                }
-                [type="radio"] {
-                    &:checked, &:not(:checked) {
-                        display: none;
-                    }
-                }
-                [type="radio"] {
-                    &:checked, &:not(:checked) {
-                        + label {
-                            padding-left: 27px;
-                            cursor: pointer;
-                            display: block;
-                            color: $black-color;
-                            position: relative;
-                            margin-bottom: 8px;
-                            font: {
-                                weight: 600;
-                            }
-                            &::before {
-                                content: '';
-                                position: absolute;
-                                left: 0;
-                                top: 3px;
-                                width: 18px;
-                                height: 18px;
-                                border: 1px solid #dddddd;
-                                border-radius: 50%;
-                                background: $white-color;
-                            }
-                            &::after {
-                                content: '';
-                                width: 12px;
-                                height: 12px;
-                                background: $main-color;
-                                position: absolute;
-                                top: 6px;
-                                left: 3px;
-                                border-radius: 50%;
-                                transition: $transition;
-                            }
-                        }
-                    }
-                }
-                [type="radio"] {
-                    &:not(:checked) {
-                        + label {
-                            &::after {
-                                opacity: 0;
-                                visibility: hidden;
-                                transform: scale(0);
-                            }
-                        }
-                    }
-                }
-                [type="radio"] {
-                    &:checked {
-                        + label {
-                            &::after {
-                                opacity: 1;
-                                visibility: visible;
-                                transform: scale(1);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        .btn {
-            &.order-btn {
+            img {
                 display: block;
-                margin-top: 25px;
-                box-shadow: 0px 5px 28.5px 1.5px rgba(149, 152, 200, .2);
+                position: absolute;
+                left: 70px;
+                bottom: 40px;
+                animation-name: rotateme;
+                animation-duration: 20s;
+                animation-iteration-count: infinite;
+                animation-timing-function: linear;
             }
         }
+    }
+}
+@keyframes rotateme {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
     }
 }
 
 /*================================================
 Contact Area CSS
 =================================================*/
-.contact-area {
-    .section-title {
-        margin-bottom: 40px;
-    }
-}
 .contact-form {
-    text-align: center;
-    
+    margin-bottom: 60px;
+
     form {
-        padding-left: 50px;
-        
         .form-control {
             background-color: $white-color;
             border: none;
-            box-shadow: 0px 5px 28.5px 1.5px rgba(149, 152, 200, .2);
+            box-shadow: 0 5px 28.5px 1.5px rgba(149, 152, 200, .2);
             height: 50px;
             font: {
                 family: $optional-font-family;
@@ -5138,8 +4908,8 @@ Contact Area CSS
         .btn {
             padding: 13px 35px 15px;
             font-size: 17px;
-            margin-top: 10px;
-            box-shadow: 0px 5px 28.5px 1.5px rgba(149, 152, 200, 0.5);
+            margin-top: 5px;
+            box-shadow: 0 5px 28.5px 1.5px rgba(149, 152, 200, 0.2);
 
             &.disabled {
                 cursor: not-allowed !important;
@@ -5171,6 +4941,7 @@ Contact Area CSS
         }
         #msgSubmit {
             margin-bottom: 0;
+            text-align: left !important;
 
             &.text-danger, &.text-success {
                 margin-top: 8px;
@@ -5182,79 +4953,160 @@ Contact Area CSS
         }
     }
 }
-.contact-info {
+.contact-image {
+    margin-bottom: 60px;
+}
+.contact-info-box {
     text-align: center;
-    margin-top: 60px;
+    border-radius: 5px;
+    transition: $transition;
+    box-shadow: 0 2px 48px 0 rgba(0, 0, 0, 0.08);
+    background: $white-color;
+    padding: 30px;
 
-    .contact-info-content {
-        h3 {
-            margin-bottom: 15px;
+    .icon {
+        display: inline-block;
+        width: 65px;
+        height: 65px;
+        line-height: 67px;
+        background: #f7fafd;
+        border-radius: 50%;
+        font-size: 30px;
+        color: $main-color;
+        transition: $transition;
+        margin-bottom: 15px;
+        border: 1px dashed #eeeeee;
+    }
+    h3 {
+        margin-bottom: 10px;
+        font: {
+            size: 23px;
+            weight: 700;
+        }
+    }
+    p {
+        margin-bottom: 0;
+
+        a {
+            display: inline-block;
+            color: $paragraph-color;
+
+            &:hover {
+                color: $main-color;
+            }
+        }
+    }
+    &:hover {
+        transform: translateY(-10px);
+
+        .icon {
+            background-color: $main-color;
+            color: $white-color;
+            border-color: $main-color;
+        }
+    }
+}
+
+/*================================================
+Subscribe Area CSS
+=================================================*/
+.newsletter-content {
+    h2 {
+        margin-bottom: 0;
+        letter-spacing: 2px;
+        font: {
+            size: 26px;
+            weight: 700;
+        }
+    }
+    form {
+        margin-top: 20px;
+        position: relative;
+
+        .input-newsletter {
+            display: block;
+            width: 100%;
+            background-color: #f7f9fc;
+            border: none;
+            color: $black-color;
+            padding-left: 15px;
+            height: 45px;
+            border-radius: 5px;
+            outline: 0;
+
+            &::placeholder {
+                color: #999999;
+            }
+        }
+        button {
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 45px;
+            border: none;
+            background-color: $optional-color;
+            color: $white-color;
+            border-radius: 0 5px 5px 0;
+            transition: $transition;
+            line-height: 43px;
+            padding: {
+                left: 22px;
+                right: 22px;
+            }
             font: {
-                size: 23px;
+                size: 16px;
+                weight: 700;
+                family: $optional-font-family;
+            }
+            i {
+                margin-left: 5px;
+            }
+            &:hover {
+                background-color: $main-color;
+                color: $white-color;
+            }
+        }
+        .validation-danger {
+            margin-top: 5px;
+            color: red;
+        }
+        .validation-success {
+            margin-top: 5px;
+        }
+    }
+}
+.subscribe-contact-info {
+    margin-top: 60px;
+    padding-left: 50px;
+
+    .content {
+        display: inline-block;
+        margin-left: 50px;
+        text-align: center;
+
+        h2 {
+            margin-bottom: 0;
+            letter-spacing: 2px;
+            font: {
+                size: 26px;
                 weight: 700;
             }
         }
-        h2 {
-            margin-bottom: 0;
+        span {
+            display: block;
+            color: $optional-color;
+            margin-top: 10px;
             font: {
-                size: 40px;
-                weight: 700;
+                size: 26px;
+                weight: 600;
+                family: $optional-font-family;
             }
             a {
                 display: inline-block;
-                color: $main-color;
+                color: $optional-color;
 
                 &:hover {
-                    color: $optional-color;
-                }
-                &:not(:first-child) {
-                    color: $optional-color;
-
-                    &:hover {
-                        color: $main-color;
-                    }
-                }
-            }
-            span {
-                display: block;
-                color: $paragraph-color;
-                margin: {
-                    top: 8px;
-                    bottom: 0;
-                }
-                font: {
-                    size: 18px;
-                    weight: 500;
-                }
-            }
-        }
-        .social {
-            padding-left: 0;
-            list-style-type: none;
-            margin: {
-                bottom: 0;
-                top: 20px;
-            }
-            li {
-                display: inline-block;
-                margin: 0 2px;
-
-                a {
-                    width: 35px;
-                    height: 35px;
-                    line-height: 35px;
-                    border: 1px solid #dadada;
-                    border-radius: 50%;
-                    color: #aba5a5;
-
-                    i {
-                        font-size: 14px;
-                    }
-                    &:hover {
-                        color: $white-color;
-                        border-color: $main-color;
-                        background-color: $main-color;
-                    }
+                    color: $main-color;
                 }
             }
         }
@@ -5268,7 +5120,7 @@ Footer Area CSS
     position: relative;
     z-index: 1;
     padding-top: 100px;
-    background-color: #15171a;
+    background-color: #182c51;
 }
 .single-footer-widget {
     margin-bottom: 30px;
@@ -5304,7 +5156,7 @@ Footer Area CSS
                 width: 35px;
                 height: 35px;
                 background-color: $black-color;
-                line-height: 35px;
+                line-height: 36px;
                 border-radius: 50%;
                 color: $white-color;
                 text-align: center;
@@ -5315,7 +5167,7 @@ Footer Area CSS
                     }
                 }
                 &:hover {
-                    background-color: $main-color;
+                    background-color: $optional-color;
                     color: $white-color;
                 }
             }
@@ -5337,7 +5189,7 @@ Footer Area CSS
             bottom: 0;
             width: 40px;
             height: 2px;
-            background: $main-color;
+            background: $optional-color;
         }
     }
     .footer-services-list {
@@ -5355,7 +5207,7 @@ Footer Area CSS
                 color: $white-color;
 
                 &:hover {
-                    color: $main-color;
+                    color: $optional-color;
                 }
             }
             &:last-child {
@@ -5378,7 +5230,7 @@ Footer Area CSS
                 color: $white-color;
 
                 &:hover {
-                    color: $main-color;
+                    color: $optional-color;
                 }
             }
             &:last-child {
@@ -5401,7 +5253,7 @@ Footer Area CSS
                 color: $white-color;
 
                 &:hover {
-                    color: $main-color;
+                    color: $optional-color;
                 }
             }
             span {
@@ -5414,7 +5266,7 @@ Footer Area CSS
     }
 }
 .copyright-area {
-    background-color: #000000;
+    background-color: #0d1d3b;
     margin-top: 70px;
     padding: {
         top: 20px;
@@ -5429,7 +5281,7 @@ Footer Area CSS
             font-weight: 600;
 
             &:hover {
-                color: $main-color;
+                color: $optional-color;
             }
         }
     }
@@ -5451,7 +5303,7 @@ Footer Area CSS
                 color: $white-color;
                 
                 &:hover {
-                    color: $main-color;
+                    color: $optional-color;
                 }
             }
             &::before {
@@ -5480,62 +5332,6 @@ Footer Area CSS
     right: 18%;
     z-index: -1;
 }
-.lines {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 100%;
-    margin: auto;
-    width: 90vw;
-    z-index: -1;
-
-    .line {
-        position: absolute;
-        width: 1px;
-        height: 100%;
-        top: 0;
-        left: 50%;
-        background: rgba(255, 255, 255, 0.1);
-        overflow: hidden;
-
-        &::after {
-            content: "";
-            display: block;
-            position: absolute;
-            height: 15vh;
-            width: 100%;
-            top: -50%;
-            left: 0;
-            background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, $white-color 75%, $white-color 100%);
-            animation: run 7s 0s infinite;
-            animation-fill-mode: forwards;
-            animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
-        }
-        &:nth-child(1) {
-            margin-left: -25%;
-
-            &::after {
-                animation-delay: 2s;
-            }
-        }
-        &:nth-child(3) {
-            margin-left: 25%;
-
-            &::after {
-                animation-delay: 2.5s;
-            }
-        }
-    }
-}
-@keyframes run {
-    0% {
-        top: -50%;
-    }
-    100% {
-        top: 110%;
-    }
-}
 
 /*================================================
 Go Top CSS
@@ -5546,7 +5342,7 @@ Go Top CSS
     top: 0;
 	right: 15px;
 	color: $white-color;
-    background: $main-color;
+	background-color: $main-color;
 	z-index: 4;
 	width: 40px;
 	text-align: center;
